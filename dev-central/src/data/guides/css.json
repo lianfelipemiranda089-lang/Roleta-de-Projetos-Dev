@@ -1,0 +1,39 @@
+{
+  "slug": "css",
+  "title": "CSS Moderno: Tokens, Flexbox e Grid",
+  "pillar": "frontend",
+  "level": "Iniciante",
+  "readTime": "7 min",
+  "updatedAt": "2026-11-25",
+  "summary": "Domine variáveis CSS para temas claro/escuro, alinhamento com Flexbox e layouts responsivos com CSS Grid.",
+  "tags": ["css", "flexbox", "grid", "variaveis", "responsividade"],
+  "sections": [
+    {
+      "id": "design-tokens",
+      "title": "Variáveis CSS (Design Tokens) e temas",
+      "explanation": "Definir cores e espaçamentos em :root permite trocar o tema inteiro da aplicação alterando apenas um atributo no HTML.",
+      "code": {
+        "language": "css",
+        "filename": "tokens.css",
+        "content": ":root {\n  --bg-primary: #0f172a;\n  --surface: #1e293b;\n  --text-primary: #f8fafc;\n  --accent: #38bdf8;\n}\n\n[data-theme=\"light\"] {\n  --bg-primary: #f8fafc;\n  --surface: #ffffff;\n  --text-primary: #0f172a;\n  --accent: #0284c7;\n}\n\nbody {\n  background: var(--bg-primary);\n  color: var(--text-primary);\n}"
+      },
+      "tip": "Prefira nomes semânticos (--bg-primary, --text-muted) em vez de nomes de cores literais (--azul-escuro)."
+    },
+    {
+      "id": "grid-responsivo",
+      "title": "Grade de cards responsiva sem media queries",
+      "explanation": "A combinação de repeat(auto-fit, minmax()) adapta automaticamente o número de colunas conforme a largura da tela.",
+      "code": {
+        "language": "css",
+        "filename": "layout.css",
+        "content": ".cards-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));\n  gap: 1.25rem;\n}\n\n.card-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.75rem;\n}"
+      },
+      "tip": "Regra prática: use Flexbox para alinhar em 1 dimensão (linha ou coluna) e Grid para estruturar em 2 dimensões (linhas e colunas)."
+    }
+  ],
+  "checklist": [
+    "Aplicar box-sizing: border-box globalmente para cálculos previsíveis de largura.",
+    "Usar rem para fontes e espaçamentos, respeitando o zoom do usuário.",
+    "Garantir contraste legível entre texto e fundo (padrão WCAG AA)."
+  ]
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevCentral — Base de Conhecimento &amp; Código Limpo</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button id="menu-toggle" class="icon-btn mobile-only" type="button" aria-label="Abrir menu lateral" aria-expanded="false">
+          <span aria-hidden="true">☰</span>
+        </button>
+        <a href="#inicio" class="brand" id="brand-home">
+          <span class="brand-badge" aria-hidden="true">DC</span>
+          <span class="brand-name">DevCentral</span>
+        </a>
+      </div>
+
+      <div class="topbar-center">
+        <label for="search-input" class="sr-only">Buscar guias, tags ou tópicos</label>
+        <div class="search-box">
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Buscar guias (ex.: sql, async, grid, express)..."
+            autocomplete="off"
+            maxlength="100"
+          >
+          <button id="clear-search" class="clear-btn hidden" type="button" aria-label="Limpar busca">×</button>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <button id="theme-toggle" class="theme-btn" type="button" aria-label="Alternar tema claro e escuro">
+          <span id="theme-icon" aria-hidden="true">☀</span>
+          <span id="theme-label">Tema Claro</span>
+        </button>
+      </div>
+    </header>
+
+    <div id="sidebar-backdrop" class="backdrop hidden" aria-hidden="true"></div>
+
+    <div class="workspace">
+      <aside id="sidebar" class="sidebar" aria-label="Navegação de pilares e guias">
+        <div class="sidebar-header">
+          <span class="sidebar-title">Pilares &amp; Guias</span>
+          <button id="reset-filters" class="link-btn" type="button">Todos</button>
+        </div>
+        <nav id="sidebar-nav" class="sidebar-nav" aria-label="Lista de pilares e guias">
+          <p class="muted">Carregando navegação...</p>
+        </nav>
+      </aside>
+
+      <main id="main-content" class="main-content" tabindex="-1">
+        <section id="status-banner" class="status-banner hidden" role="status" aria-live="polite"></section>
+
+        <section id="catalog-section" class="catalog-section">
+          <div class="section-head">
+            <div>
+              <h1 id="catalog-title">Referência Técnica &amp; Guias</h1>
+              <p id="catalog-subtitle" class="muted">Selecione um guia para ler os trechos de código, checklists e boas práticas.</p>
+            </div>
+            <span id="catalog-count" class="count-pill">0 guias</span>
+          </div>
+
+          <div id="pillar-pills" class="pillar-pills" role="group" aria-label="Filtrar por pilar"></div>
+          <div id="guides-grid" class="guides-grid" aria-live="polite"></div>
+        </section>
+
+        <article id="guide-reader" class="guide-reader hidden" aria-live="polite"></article>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

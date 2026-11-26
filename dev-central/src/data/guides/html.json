@@ -1,0 +1,40 @@
+{
+  "slug": "html",
+  "title": "HTML5 Semântico na Prática",
+  "pillar": "frontend",
+  "level": "Iniciante",
+  "readTime": "6 min",
+  "updatedAt": "2026-11-25",
+  "summary": "Estruture páginas acessíveis e fáceis de manter usando tags semânticas em vez de empilhar divs.",
+  "tags": ["html", "semantica", "acessibilidade", "seo", "formularios"],
+  "sections": [
+    {
+      "id": "estrutura-base",
+      "title": "Esqueleto semântico de uma página",
+      "explanation": "Tags como header, nav, main, article e footer comunicam o papel de cada bloco para navegadores, leitores de tela e buscadores.",
+      "code": {
+        "language": "html",
+        "filename": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Dev Central</title>\n</head>\n<body>\n  <header>\n    <nav aria-label=\"Navegação principal\">\n      <a href=\"/\">Início</a>\n      <a href=\"#guias\">Guias</a>\n    </nav>\n  </header>\n  <main id=\"guias\">\n    <article>\n      <h1>HTML5 Semântico</h1>\n      <p>Use cada tag pelo significado, não pela aparência.</p>\n    </article>\n  </main>\n  <footer>\n    <p>Portal Dev Central</p>\n  </footer>\n</body>\n</html>"
+      },
+      "tip": "Mantenha apenas um <h1> principal por página e respeite a hierarquia (h1 -> h2 -> h3) sem pular níveis."
+    },
+    {
+      "id": "formularios-acessiveis",
+      "title": "Formulários acessíveis e validados",
+      "explanation": "Todo campo de formulário precisa de um <label> vinculado pelo atributo for/id e de tipos específicos (email, number, search) para ajudar o teclado e a validação nativa.",
+      "code": {
+        "language": "html",
+        "filename": "form.html",
+        "content": "<form action=\"/api/contato\" method=\"post\">\n  <label for=\"email\">E-mail profissional</label>\n  <input id=\"email\" name=\"email\" type=\"email\" required autocomplete=\"email\">\n  <button type=\"submit\">Enviar</button>\n</form>"
+      },
+      "tip": "Use <button type=\"button\"> para ações que não enviam o formulário, evitando recarregamentos acidentais."
+    }
+  ],
+  "checklist": [
+    "Declarar <!DOCTYPE html> e o idioma em <html lang=\"pt-BR\">.",
+    "Usar <main> para envolver o conteúdo principal da página.",
+    "Preencher alt descritivo em imagens informativas (ou alt=\"\" em imagens decorativas).",
+    "Vincular todo <input> a um <label>."
+  ]
+}

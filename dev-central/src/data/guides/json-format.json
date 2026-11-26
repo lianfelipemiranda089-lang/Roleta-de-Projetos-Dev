@@ -1,0 +1,39 @@
+{
+  "slug": "json-format",
+  "title": "JSON na Prática: Sintaxe, Regras e Boas Práticas",
+  "pillar": "dados",
+  "level": "Iniciante",
+  "readTime": "5 min",
+  "updatedAt": "2026-11-25",
+  "summary": "Entenda a sintaxe estrita do JSON, os erros mais comuns que quebram o parser e como modelar respostas de API.",
+  "tags": ["json", "api", "dados", "serializacao", "rest"],
+  "sections": [
+    {
+      "id": "regras-ouro",
+      "title": "As 4 regras que evitam erros de sintaxe JSON",
+      "explanation": "JSON (JavaScript Object Notation) parece um objeto JS, mas é bem mais rigoroso: exige aspas duplas em chaves e strings, não aceita comentários e proíbe vírgula após o último item.",
+      "code": {
+        "language": "json",
+        "filename": "exemplo-valido.json",
+        "content": "{\n  \"project\": \"Dev Central\",\n  \"version\": 1,\n  \"active\": true,\n  \"tags\": [\"nodejs\", \"express\", \"json\"],\n  \"author\": null\n}"
+      },
+      "tip": "O erro 'Unexpected end of JSON input' indica arquivo vazio ou chave/colchete sem fechar; já 'Unexpected token' quase sempre é vírgula sobrando ou aspa simples."
+    },
+    {
+      "id": "parse-stringify",
+      "title": "Convertendo entre texto JSON e objeto no JavaScript",
+      "explanation": "Use JSON.parse() dentro de try/catch ao ler entradas externas e JSON.stringify(obj, null, 2) para gerar saída formatada e legível.",
+      "code": {
+        "language": "javascript",
+        "filename": "json-utils.js",
+        "content": "const raw = '{\"status\":\"ok\",\"count\":6}';\n\ntry {\n  const data = JSON.parse(raw);\n  console.log(data.count); // 6\n  console.log(JSON.stringify(data, null, 2));\n} catch (err) {\n  console.error('JSON inválido:', err.message);\n}"
+      },
+      "tip": "Padronize os retornos de erro da sua API (ex: { error: { code, message, requestId } }) para o front-end tratar tudo de forma previsível."
+    }
+  ],
+  "checklist": [
+    "Usar sempre aspas duplas (\") em chaves e textos.",
+    "Não deixar vírgula após o último campo de um objeto ou array.",
+    "Não inserir comentários (// ou /* */) dentro de arquivos .json."
+  ]
+}

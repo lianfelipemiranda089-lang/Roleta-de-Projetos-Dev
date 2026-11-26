@@ -1,0 +1,21 @@
+# Dependências do Node.js
+node_modules/
+
+# Variáveis de ambiente e segredos
+.env
+.env.local
+.env.*.local
+
+# Logs e cache
+npm-debug.log*
+*.log
+.cache/
+
+# Arquivos temporários do Excel (evita subir travas quando a planilha está aberta)
+~$*.xlsx
+~$*.xls
+
+# Arquivos de sistema (Windows / macOS)
+.DS_Store
+Thumbs.db
+desktop.ini

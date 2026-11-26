@@ -1,0 +1,39 @@
+{
+  "slug": "sql",
+  "title": "Banco de Dados SQL do Zero",
+  "pillar": "dados",
+  "level": "Iniciante",
+  "readTime": "10 min",
+  "updatedAt": "2026-11-25",
+  "summary": "Aprenda a criar tabelas relacionais, inserir registros, filtrar dados com SELECT/JOIN e evitar SQL Injection.",
+  "tags": ["sql", "banco-de-dados", "postgresql", "sqlite", "crud", "join"],
+  "sections": [
+    {
+      "id": "modelagem-tabelas",
+      "title": "Criando tabelas com chaves primárias e estrangeiras",
+      "explanation": "Bancos relacionais evitam duplicação ligando tabelas por IDs. Uma chave estrangeira (FOREIGN KEY) garante que nenhum guia aponte para um pilar inexistente.",
+      "code": {
+        "language": "sql",
+        "filename": "schema.sql",
+        "content": "CREATE TABLE pillars (\n  id TEXT PRIMARY KEY,\n  name TEXT NOT NULL\n);\n\nCREATE TABLE guides (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  slug TEXT NOT NULL UNIQUE,\n  title TEXT NOT NULL,\n  pillar_id TEXT NOT NULL,\n  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n  FOREIGN KEY (pillar_id) REFERENCES pillars(id)\n);"
+      },
+      "tip": "Adicione índices (UNIQUE ou CREATE INDEX) nas colunas mais usadas em WHERE e JOIN, como slug e pillar_id."
+    },
+    {
+      "id": "consultas-seguras",
+      "title": "Consultas com JOIN e parâmetros seguros",
+      "explanation": "O INNER JOIN combina colunas de tabelas relacionadas. No código Node.js, sempre passe valores como parâmetros ($1 ou ?) em vez de concatenar strings.",
+      "code": {
+        "language": "sql",
+        "filename": "queries.sql",
+        "content": "SELECT\n  g.slug,\n  g.title,\n  p.name AS pillar_name\nFROM guides g\nINNER JOIN pillars p ON p.id = g.pillar_id\nWHERE g.pillar_id = $1\nORDER BY g.title ASC;"
+      },
+      "tip": "Nunca escreva `WHERE slug = '${req.params.slug}'`. Consultas parametrizadas eliminam SQL Injection na raiz."
+    }
+  ],
+  "checklist": [
+    "Definir PRIMARY KEY em toda tabela.",
+    "Sempre incluir WHERE ao executar UPDATE ou DELETE.",
+    "Usar consultas parametrizadas ao conectar o Node.js ao banco."
+  ]
+}

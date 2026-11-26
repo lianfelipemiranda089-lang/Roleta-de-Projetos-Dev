@@ -1,0 +1,39 @@
+{
+  "slug": "javascript",
+  "title": "JavaScript Moderno (ES6+ e Assincronismo)",
+  "pillar": "frontend",
+  "level": "Intermediário",
+  "readTime": "8 min",
+  "updatedAt": "2026-11-25",
+  "summary": "Escreva código limpo no navegador e no servidor usando módulos ES, métodos de array, fetch e async/await.",
+  "tags": ["javascript", "es6", "async", "await", "fetch", "dom"],
+  "sections": [
+    {
+      "id": "imutabilidade-arrays",
+      "title": "Transformação de dados com filter e map",
+      "explanation": "Em vez de modificar arrays no lugar com loops manuais, encadeie filter e map para deixar a intenção clara e evitar efeitos colaterais.",
+      "code": {
+        "language": "javascript",
+        "filename": "arrays.js",
+        "content": "const guides = [\n  { slug: 'html', pillar: 'frontend', level: 'Iniciante' },\n  { slug: 'nodejs', pillar: 'backend', level: 'Intermediário' }\n];\n\nconst frontendSlugs = guides\n  .filter((item) => item.pillar === 'frontend')\n  .map((item) => item.slug);\n\nconsole.log(frontendSlugs); // ['html']"
+      },
+      "tip": "Use const por padrão; recorra a let apenas quando a variável realmente precisar ser reatribuída."
+    },
+    {
+      "id": "fetch-async-await",
+      "title": "Consumindo APIs com fetch, async/await e timeout",
+      "explanation": "O fetch só rejeita a Promise em falha de rede. Sempre verifique response.ok para capturar erros HTTP como 404 ou 500.",
+      "code": {
+        "language": "javascript",
+        "filename": "api.js",
+        "content": "export async function fetchGuides(query = '') {\n  const params = new URLSearchParams();\n  if (query) params.set('q', query);\n\n  const response = await fetch(`/api/guides?${params.toString()}`, {\n    signal: AbortSignal.timeout(8000)\n  });\n\n  if (!response.ok) {\n    throw new Error(`Falha ao buscar guias (HTTP ${response.status})`);\n  }\n\n  return response.json();\n}"
+      },
+      "tip": "Ao exibir dados vindos de uma API no DOM, prefira element.textContent no lugar de innerHTML para prevenir ataques XSS."
+    }
+  ],
+  "checklist": [
+    "Usar comparação estrita (=== e !==) para evitar coerções inesperadas.",
+    "Sempre checar response.ok após chamadas fetch().",
+    "Tratar erros de funções assíncronas com try/catch."
+  ]
+}

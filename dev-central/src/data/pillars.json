@@ -1,0 +1,32 @@
+[
+  {
+    "id": "frontend",
+    "name": "Front-end & UI",
+    "icon": "layout",
+    "description": "Estrutura semântica, estilização moderna e interatividade no navegador com HTML, CSS e JavaScript."
+  },
+  {
+    "id": "backend",
+    "name": "Back-end & APIs",
+    "icon": "server",
+    "description": "Servidores HTTP, rotas REST, middlewares, segurança e arquitetura com Node.js e Express."
+  },
+  {
+    "id": "dados",
+    "name": "Banco de Dados & Formatos",
+    "icon": "database",
+    "description": "Modelagem relacional, consultas SQL do zero e troca de dados estruturados em JSON."
+  },
+  {
+    "id": "arquitetura",
+    "name": "Arquitetura & Boas Práticas",
+    "icon": "layers",
+    "description": "Separação de camadas, tratamento de erros, testes automatizados e código limpo."
+  },
+  {
+    "id": "ferramentas",
+    "name": "Git, Terminal & DevOps",
+    "icon": "terminal",
+    "description": "Fluxo de versionamento no GitHub, comandos essenciais de terminal e deploy."
+  }
+]
