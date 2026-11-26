@@ -1,0 +1,67 @@
+{
+  "slug": "node-express-comandos",
+  "title": "Node.js & Express: Rotas, Middlewares e Segurança",
+  "category": "Node.js",
+  "language": "JavaScript (Node)",
+  "runnable": false,
+  "summary": "Guia rápido dos comandos mais usados em back-end Node.js moderno (ESM) com Express e módulos nativos.",
+  "explanation": "Um back-end profissional em Node.js separa rotas, validação, regras de negócio (services) e tratamento centralizado de erros, aproveitando módulos nativos (node:fs/promises, node:path, node:crypto) para evitar dependências desnecessárias.",
+  "tags": [
+    "nodejs",
+    "express",
+    "api",
+    "middlewares",
+    "backend",
+    "seguranca"
+  ],
+  "references": [
+    {
+      "group": "Rotas Express",
+      "syntax": "app.get / post / put / patch / delete",
+      "description": "Mapeia cada verbo HTTP para um handler específico."
+    },
+    {
+      "group": "Entrada",
+      "syntax": "req.params / req.query / req.body",
+      "description": "Lê parâmetros de URL (:id), filtros (?q=...) e JSON enviado no corpo."
+    },
+    {
+      "group": "Saída",
+      "syntax": "res.status(201).json({ ... })",
+      "description": "Define o status HTTP correto e devolve JSON estruturado."
+    },
+    {
+      "group": "Middlewares",
+      "syntax": "app.use((req, res, next) => ...)",
+      "description": "Intercepta requisições para logs, autenticação, rate limit e headers."
+    },
+    {
+      "group": "Erro Global",
+      "syntax": "app.use((err, req, res, next) => ...)",
+      "description": "Captura exceções em um único lugar sem vazar stack trace em produção."
+    },
+    {
+      "group": "Nativos Node",
+      "syntax": "import fs from \"node:fs/promises\"",
+      "description": "Leitura e escrita assíncrona de arquivos sem bloquear o Event Loop."
+    },
+    {
+      "group": "Nativos Node",
+      "syntax": "crypto.randomUUID()",
+      "description": "Gera identificadores únicos criptograficamente seguros."
+    },
+    {
+      "group": "Segurança",
+      "syntax": "app.disable(\"x-powered-by\")",
+      "description": "Oculta a assinatura do Express nos headers de resposta."
+    }
+  ],
+  "codeSnippet": {
+    "filename": "rota-segura-express.js",
+    "content": "import express from 'express';\nimport crypto from 'node:crypto';\n\nconst app = express();\napp.disable('x-powered-by');\napp.use(express.json({ limit: '16kb', strict: true }));\n\napp.post('/api/items', (req, res) => {\n  const title = typeof req.body?.title === 'string' ? req.body.title.trim() : '';\n\n  if (title.length < 3 || title.length > 80) {\n    return res.status(400).json({\n      error: { code: 'INVALID_TITLE', message: 'Título deve ter entre 3 e 80 caracteres.' }\n    });\n  }\n\n  return res.status(201).json({\n    id: crypto.randomUUID(),\n    title,\n    createdAt: new Date().toISOString()\n  });\n});"
+  },
+  "experiments": [
+    "Sempre valide tipo e tamanho de req.body antes de tocar no banco de dados.",
+    "Use express.json({ limit: \"16kb\" }) para evitar ataques de exaustão de memória com payloads gigantes."
+  ]
+}

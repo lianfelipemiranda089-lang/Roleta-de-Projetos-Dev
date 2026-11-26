@@ -1,0 +1,54 @@
+{
+  "slug": "animacoes-microinteracoes-ux",
+  "title": "Micro-interações Profissionais: Feedback, Estados e Fluxo",
+  "pillar": "frontend",
+  "level": "Intermediário",
+  "readTime": "6 min",
+  "summary": "Como usar pequenas animações intencionais para confirmar cliques, sinalizar erros, suavizar carregamentos e deixar a interface intuitiva.",
+  "tags": [
+    "ux",
+    "microinteracoes",
+    "ui",
+    "animacoes",
+    "skeleton",
+    "feedback"
+  ],
+  "sections": [
+    {
+      "title": "1. Os 4 estados que todo botão profissional precisa ter",
+      "explanation": "Uma interface parece \"viva\" e confiável quando responde instantaneamente a cada ação do dedo ou mouse: repouso, hover (convite), active (pressão tátil com scale 0.97) e focus-visible (acessibilidade por teclado).",
+      "code": {
+        "language": "css",
+        "filename": "botao-tatil.css",
+        "content": ".btn-pro {\n  padding: 10px 18px;\n  border-radius: 8px;\n  border: 1px solid transparent;\n  background: #2563eb;\n  color: #ffffff;\n  font-weight: 600;\n  cursor: pointer;\n  transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1), background-color 140ms ease;\n}\n\n.btn-pro:hover {\n  background: #1d4ed8;\n  transform: translateY(-1px);\n}\n\n.btn-pro:active {\n  transform: scale(0.97);\n}\n\n.btn-pro:focus-visible {\n  outline: 2px solid #60a5fa;\n  outline-offset: 2px;\n}"
+      },
+      "tip": "Nunca remova o outline no :focus sem fornecer uma alternativa clara no :focus-visible."
+    },
+    {
+      "title": "2. Entrada escalonada (Stagger) sem poluir o CSS",
+      "explanation": "Em vez de escrever 10 classes .delay-1, .delay-2..., passe apenas o índice do elemento via variável CSS inline (--i: 0, 1, 2...) e calcule o atraso automaticamente com calc().",
+      "code": {
+        "language": "css",
+        "filename": "stagger-pattern.css",
+        "content": ".card-item {\n  animation: enterUp 320ms cubic-bezier(0.22, 1, 0.36, 1) both;\n  animation-delay: calc(var(--i, 0) * 45ms);\n}\n\n@keyframes enterUp {\n  from {\n    opacity: 0;\n    transform: translateY(10px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}"
+      },
+      "tip": "Limpe o atraso máximo para listas longas (ex.: Math.min(index, 8)) para que o 30º card não demore 2 segundos para aparecer."
+    },
+    {
+      "title": "3. Regra de ouro: propósito acima de enfeite",
+      "explanation": "Toda animação deve responder a pelo menos uma destas perguntas: \"Onde estou?\", \"O que acabou de mudar?\" ou \"O sistema está trabalhando?\". Se um elemento fica quicando o tempo todo sem motivo, ele rouba atenção e cansa o usuário.",
+      "code": {
+        "language": "text",
+        "filename": "mapa-de-uso.txt",
+        "content": "CONFIRMAÇÃO DE CLIQUE  -> scale(0.97) no :active + troca de texto (\"Copiado!\")\nCARREGAMENTO DE DADOS  -> Skeleton Shimmer (melhor que tela em branco)\nERRO DE VALIDAÇÃO      -> Shake horizontal curto (300ms) + borda vermelha + texto claro\nNAVEGAÇÃO / MODAL      -> Fade + leve translateY(8px) em 200ms-280ms"
+      },
+      "tip": "Abra a Biblioteca de Códigos > Animações aqui mesmo no DevCentral para editar e testar todas essas receitas ao vivo."
+    }
+  ],
+  "checklist": [
+    "Garantir feedback visual imediato em botões (:hover, :active e :focus-visible).",
+    "Substituir telas em branco por Skeleton Loaders ou spinners leves.",
+    "Limitar o delay máximo em listas escalonadas (stagger).",
+    "Evitar animações infinitas chamativas perto de textos de leitura."
+  ]
+}

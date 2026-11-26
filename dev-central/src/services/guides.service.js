@@ -4,6 +4,7 @@ import { env } from '../config/env.js';
 import { AppError } from '../middlewares/errorHandler.js';
 
 const SLUG_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const FORBIDDEN_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
 
 let state = {
   loaded: false,
@@ -14,9 +15,42 @@ let state = {
 
 let loadingPromise = null;
 
+function safeJsonReviver(key, value) {
+  if (FORBIDDEN_KEYS.has(key)) {
+    return undefined;
+  }
+  return value;
+}
+
 async function readJsonSafe(filePath) {
   const raw = await fs.readFile(filePath, 'utf-8');
-  return JSON.parse(raw);
+  return JSON.parse(raw, safeJsonReviver);
+}
+
+function sanitizeResources(resources) {
+  if (!Array.isArray(resources)) return [];
+  const clean = [];
+
+  for (const item of resources) {
+    if (!item || typeof item.url !== 'string' || typeof item.name !== 'string') {
+      continue;
+    }
+    try {
+      const parsed = new URL(item.url);
+      if (parsed.protocol !== 'https:') continue;
+
+      clean.push({
+        name: item.name.trim(),
+        url: parsed.href,
+        category: typeof item.category === 'string' ? item.category.trim() : 'Referência',
+        description: typeof item.description === 'string' ? item.description.trim() : ''
+      });
+    } catch {
+      continue;
+    }
+  }
+
+  return clean;
 }
 
 export async function loadKnowledgeBase({ force = false } = {}) {
@@ -33,7 +67,6 @@ export async function loadKnowledgeBase({ force = false } = {}) {
     const nextGuides = [];
     const nextGuidesBySlug = new Map();
 
-    // 1. Carrega pilares (se existir)
     const pillarsPath = path.join(env.DATA_DIR, 'pillars.json');
     try {
       const parsedPillars = await readJsonSafe(pillarsPath);
@@ -50,7 +83,6 @@ export async function loadKnowledgeBase({ force = false } = {}) {
       }
     }
 
-    // 2. Carrega guias individuais (com isolamento de falhas por arquivo)
     try {
       const entries = await fs.readdir(env.GUIDES_DIR, { withFileTypes: true });
       const jsonFiles = entries
@@ -71,8 +103,14 @@ export async function loadKnowledgeBase({ force = false } = {}) {
           if (!guide || typeof guide.slug !== 'string' || !SLUG_REGEX.test(guide.slug)) {
             continue;
           }
-          nextGuides.push(guide);
-          nextGuidesBySlug.set(guide.slug, guide);
+
+          const sanitizedGuide = {
+            ...guide,
+            resources: sanitizeResources(guide.resources)
+          };
+
+          nextGuides.push(sanitizedGuide);
+          nextGuidesBySlug.set(sanitizedGuide.slug, sanitizedGuide);
         } catch (fileErr) {
           console.warn(JSON.stringify({
             level: 'warn',
@@ -119,6 +157,10 @@ export async function listPillars() {
 
 export async function listGuides({ pillar, level, q } = {}) {
   await loadKnowledgeBase();
+
+  if (Array.isArray(pillar) || Array.isArray(level) || Array.isArray(q)) {
+    throw new AppError(400, 'INVALID_QUERY_PARAM', 'Parâmetros de filtro duplicados não são permitidos.');
+  }
 
   const normalizedPillar = typeof pillar === 'string' ? pillar.trim().toLowerCase() : '';
   const normalizedLevel = typeof level === 'string' ? level.trim().toLowerCase() : '';

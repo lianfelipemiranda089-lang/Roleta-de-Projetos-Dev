@@ -5,6 +5,11 @@ import {
   listGuides,
   listPillars
 } from '../services/guides.service.js';
+import {
+  getLibraryItemBySlug,
+  getLibraryStats,
+  listLibrary
+} from '../services/library.service.js';
 
 const router = Router();
 
@@ -13,11 +18,11 @@ const asyncHandler = (fn) => (req, res, next) => {
 };
 
 router.get('/health', (_req, res) => {
-  const stats = getStats();
   res.json({
     status: 'ok',
     uptimeSeconds: Math.floor(process.uptime()),
-    ...stats
+    ...getStats(),
+    ...getLibraryStats()
   });
 });
 
@@ -32,11 +37,11 @@ router.get(
 router.get(
   '/guides',
   asyncHandler(async (req, res) => {
-    const pillar = typeof req.query.pillar === 'string' ? req.query.pillar : undefined;
-    const level = typeof req.query.level === 'string' ? req.query.level : undefined;
-    const q = typeof req.query.q === 'string' ? req.query.q : undefined;
-
-    const guides = await listGuides({ pillar, level, q });
+    const guides = await listGuides({
+      pillar: req.query.pillar,
+      level: req.query.level,
+      q: req.query.q
+    });
     res.json({ total: guides.length, guides });
   })
 );
@@ -46,6 +51,25 @@ router.get(
   asyncHandler(async (req, res) => {
     const guide = await getGuideBySlug(req.params.slug);
     res.json({ guide });
+  })
+);
+
+router.get(
+  '/library',
+  asyncHandler(async (req, res) => {
+    const { categories, items } = await listLibrary({
+      category: req.query.category,
+      q: req.query.q
+    });
+    res.json({ total: items.length, categories, items });
+  })
+);
+
+router.get(
+  '/library/:slug',
+  asyncHandler(async (req, res) => {
+    const item = await getLibraryItemBySlug(req.params.slug);
+    res.json({ item });
   })
 );
 

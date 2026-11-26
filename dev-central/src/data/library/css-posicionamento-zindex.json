@@ -1,0 +1,64 @@
+{
+  "slug": "css-posicionamento-zindex",
+  "title": "CSS Position (Relative, Absolute, Fixed, Sticky) e Z-Index",
+  "category": "CSS",
+  "language": "HTML / CSS",
+  "runnable": true,
+  "summary": "Controle exatamente onde elementos flutuam, grudam na rolagem ou se sobrepõem em camadas.",
+  "explanation": "A propriedade position define o ponto de referência de um elemento. Um erro clássico de iniciantes é usar position: absolute sem definir position: relative no elemento pai — nesse caso, o filho foge para o canto da janela inteira.",
+  "tags": [
+    "css",
+    "position",
+    "absolute",
+    "relative",
+    "sticky",
+    "fixed",
+    "z-index"
+  ],
+  "references": [
+    {
+      "group": "Modos",
+      "syntax": "position: static",
+      "description": "Padrão do navegador; segue o fluxo normal e ignora top/left/z-index."
+    },
+    {
+      "group": "Modos",
+      "syntax": "position: relative",
+      "description": "Mantém espaço no fluxo e serve de âncora para filhos absolute."
+    },
+    {
+      "group": "Modos",
+      "syntax": "position: absolute",
+      "description": "Sai do fluxo e posiciona-se relativo ao ancestral posicionado mais próximo."
+    },
+    {
+      "group": "Modos",
+      "syntax": "position: fixed",
+      "description": "Fica fixo na tela (viewport) mesmo quando o usuário rola a página."
+    },
+    {
+      "group": "Modos",
+      "syntax": "position: sticky",
+      "description": "Age como relative até cruzar um limite (ex.: top: 0), quando gruda."
+    },
+    {
+      "group": "Coordenadas",
+      "syntax": "top / right / bottom / left / inset",
+      "description": "Define deslocamento; inset: 0 equivale a zerar os 4 lados."
+    },
+    {
+      "group": "Camadas",
+      "syntax": "z-index: 10",
+      "description": "Controla qual elemento posicionado aparece na frente em sobreposições."
+    }
+  ],
+  "playground": {
+    "html": "<div class=\"scroll-area\">\n  <header class=\"sticky-bar\">Cabeçalho Sticky (role para baixo)</header>\n\n  <div class=\"card\">\n    <span class=\"badge\">NOVO</span>\n    <h3>Card com Badge Absolute</h3>\n    <p>O selo azul fica preso ao canto superior direito porque o .card tem position: relative.</p>\n  </div>\n\n  <div class=\"spacer\">Role para ver o cabeçalho sticky acompanhando o topo...</div>\n</div>",
+    "css": "body { font-family: system-ui, sans-serif; padding: 14px; background: #f8fafc; color: #0f172a; }\n.scroll-area {\n  height: 240px;\n  overflow-y: auto;\n  border: 1px solid #cbd5e1;\n  border-radius: 10px;\n  background: #fff;\n}\n.sticky-bar {\n  position: sticky;\n  top: 0;\n  z-index: 10;\n  padding: 10px 14px;\n  background: #0f172a;\n  color: #fff;\n  font-size: 0.84rem;\n  font-weight: 600;\n}\n.card {\n  position: relative;\n  margin: 18px 14px;\n  padding: 16px;\n  border: 1px solid #e2e8f0;\n  border-radius: 8px;\n  background: #f8fafc;\n}\n.badge {\n  position: absolute;\n  top: -10px;\n  right: 12px;\n  padding: 3px 8px;\n  border-radius: 999px;\n  background: #2563eb;\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 700;\n}\nh3 { margin: 0 0 6px; font-size: 0.96rem; }\np { margin: 0; font-size: 0.84rem; color: #475569; }\n.spacer { height: 240px; padding: 14px; color: #94a3b8; font-size: 0.85rem; }",
+    "js": ""
+  },
+  "experiments": [
+    "Comente a linha position: relative; dentro de .card e veja o selo NOVO escapar da caixa.",
+    "Altere right: 12px para left: 12px no .badge para movê-lo para o outro lado."
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "slug": "js-async-fetch-apis",
+  "title": "JavaScript Assíncrono: Promises, async/await, Fetch e HTTP",
+  "category": "JavaScript",
+  "language": "JavaScript",
+  "runnable": true,
+  "summary": "Como lidar com operações assíncronas sem travar a tela, tratar erros com try/catch, usar Promise.all e interpretar códigos HTTP.",
+  "explanation": "Requisições de rede e timers são assíncronos. Em código profissional, combinamos async/await com try/catch, verificamos response.ok no fetch (pois erro 404/500 não rejeita a Promise sozinho) e aplicamos timeouts com AbortSignal.timeout().",
+  "tags": [
+    "javascript",
+    "async",
+    "await",
+    "promises",
+    "fetch",
+    "http",
+    "api"
+  ],
+  "references": [
+    {
+      "group": "Assíncrono",
+      "syntax": "async function fn() { const res = await ... }",
+      "description": "Permite escrever código assíncrono com leitura sequencial limpa."
+    },
+    {
+      "group": "Concorrência",
+      "syntax": "Promise.all([p1, p2])",
+      "description": "Executa múltiplas Promises em paralelo e aguarda todas concluírem."
+    },
+    {
+      "group": "Concorrência",
+      "syntax": "Promise.allSettled([p1, p2])",
+      "description": "Aguarda todas mesmo se alguma falhar, retornando status individual."
+    },
+    {
+      "group": "Rede",
+      "syntax": "fetch(url, { signal: AbortSignal.timeout(5000) })",
+      "description": "Faz requisição HTTP com proteção contra servidor travado."
+    },
+    {
+      "group": "HTTP Status",
+      "syntax": "200 OK / 201 Created / 204 No Content",
+      "description": "Sucesso na leitura, criação de recurso ou operação sem corpo."
+    },
+    {
+      "group": "HTTP Status",
+      "syntax": "400 Bad Request / 401 Unauthorized / 403 Forbidden / 404 Not Found",
+      "description": "Erros do cliente: dado inválido, sem login, sem permissão ou inexistente."
+    },
+    {
+      "group": "HTTP Status",
+      "syntax": "429 Too Many Requests / 500 Internal Server Error",
+      "description": "Limite de taxa (rate limit) atingido ou erro inesperado no servidor."
+    }
+  ],
+  "playground": {
+    "html": "<div style=\"font-family:system-ui;padding:16px\"><button id=\"run-async\" style=\"padding:8px 14px;border:none;border-radius:6px;background:#2563eb;color:#fff;font-weight:600;cursor:pointer\">Simular Chamada Paralela</button></div>",
+    "css": "",
+    "js": "function simularApi(nome, ms, deveFalhar) {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      if (deveFalhar) reject(new Error('Falha em ' + nome));\n      else resolve({ servico: nome, tempoMs: ms });\n    }, ms);\n  });\n}\n\nasync function carregarPainel() {\n  console.log('Iniciando 2 requisições em paralelo...');\n  try {\n    const [perfil, pedidos] = await Promise.all([\n      simularApi('Perfil', 300, false),\n      simularApi('Pedidos', 500, false)\n    ]);\n    console.log('Tudo carregado:', { perfil, pedidos });\n  } catch (err) {\n    console.error('Erro capturado no try/catch:', err.message);\n  }\n}\n\ndocument.getElementById('run-async').addEventListener('click', carregarPainel);\ncarregarPainel();"
+  },
+  "experiments": [
+    "Troque false para true em simularApi(\"Pedidos\", 500, true) para ver o bloco catch agir.",
+    "Troque Promise.all por Promise.allSettled e veja o resultado quando uma das chamadas falha."
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "slug": "css-animacoes-interativas-ui",
+  "title": "Receitas de Animações de UI: Skeleton, Spinner, Shake e Stagger",
+  "category": "Animações",
+  "language": "HTML / CSS / JS",
+  "runnable": true,
+  "summary": "Padrões reais usados em sistemas profissionais: carregamento Skeleton Shimmer, feedback de erro (Shake), Spinner CSS e entrada escalonada.",
+  "explanation": "Em aplicativos reais, animações servem para comunicar estado: o Skeleton Shimmer reduz a percepção de espera enquanto a API responde; o Shake sinaliza erro de formulário sem texto agressivo; e o Stagger (atraso progressivo) ajuda o olho a escanear listas.",
+  "tags": [
+    "animacoes",
+    "skeleton",
+    "spinner",
+    "shake",
+    "stagger",
+    "ux",
+    "microinteracoes"
+  ],
+  "references": [
+    {
+      "group": "Loading",
+      "syntax": "Skeleton Shimmer (background-position)",
+      "description": "Brilho deslizante que simula o layout enquanto os dados carregam."
+    },
+    {
+      "group": "Loading",
+      "syntax": "Spinner CSS (border-top-color + rotate)",
+      "description": "Indicador circular leve sem precisar importar GIF ou biblioteca."
+    },
+    {
+      "group": "Feedback",
+      "syntax": "Shake Error (translateX ±6px)",
+      "description": "Vibração curta (300ms) para indicar senha incorreta ou campo inválido."
+    },
+    {
+      "group": "Lista",
+      "syntax": "Stagger (animation-delay: calc(var(--i) * 60ms))",
+      "description": "Entrada sequencial elegante dos itens de uma lista."
+    }
+  ],
+  "playground": {
+    "html": "<div class=\"grid\">\n  <section class=\"box\">\n    <h3>1. Skeleton Shimmer</h3>\n    <div class=\"sk title\"></div>\n    <div class=\"sk line\"></div>\n    <div class=\"sk line short\"></div>\n  </section>\n\n  <section class=\"box\">\n    <h3>2. Spinner + Erro Shake</h3>\n    <div class=\"row\">\n      <div class=\"spinner\" aria-label=\"Carregando\"></div>\n      <button id=\"btn-err\" type=\"button\">Simular Erro (Shake)</button>\n    </div>\n  </section>\n\n  <section class=\"box full\">\n    <h3>3. Entrada Escalonada (Stagger)</h3>\n    <ul class=\"stagger-list\">\n      <li style=\"--i: 0\">Item 01 — delay 0ms</li>\n      <li style=\"--i: 1\">Item 02 — delay 70ms</li>\n      <li style=\"--i: 2\">Item 03 — delay 140ms</li>\n    </ul>\n  </section>\n</div>",
+    "css": "body { font-family: system-ui, sans-serif; padding: 16px; background: #09090b; color: #fafafa; }\n.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }\n.box { padding: 14px; border-radius: 10px; background: #111114; border: 1px solid #27272a; }\n.box.full { grid-column: 1 / -1; }\nh3 { margin: 0 0 10px; font-size: 0.85rem; color: #a1a1aa; }\n\n/* 1. Skeleton Shimmer */\n.sk {\n  height: 12px; border-radius: 6px; margin-bottom: 8px;\n  background: linear-gradient(90deg, #1f1f24 25%, #2f2f37 50%, #1f1f24 75%);\n  background-size: 200% 100%;\n  animation: shimmer 1.4s ease-in-out infinite;\n}\n.sk.title { height: 18px; width: 65%; }\n.sk.short { width: 45%; margin-bottom: 0; }\n\n/* 2. Spinner + Shake */\n.row { display: flex; align-items: center; gap: 14px; }\n.spinner {\n  width: 26px; height: 26px; border-radius: 50%;\n  border: 3px solid #27272a; border-top-color: #3b82f6;\n  animation: spin 750ms linear infinite;\n}\nbutton {\n  padding: 8px 12px; border: 1px solid #ef4444; border-radius: 6px;\n  background: rgba(239, 68, 68, 0.14); color: #fca5a5; font-weight: 600; cursor: pointer;\n}\nbutton.shake { animation: shake 320ms ease-in-out; }\n\n/* 3. Stagger */\n.stagger-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }\n.stagger-list li {\n  padding: 8px 10px; border-radius: 6px; background: #18181b; border: 1px solid #27272a; font-size: 0.84rem;\n  animation: popIn 340ms cubic-bezier(0.22, 1, 0.36, 1) both;\n  animation-delay: calc(var(--i) * 70ms);\n}\n\n@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }\n@keyframes spin { to { transform: rotate(360deg); } }\n@keyframes shake {\n  0%, 100% { transform: translateX(0); }\n  25% { transform: translateX(-6px); }\n  50% { transform: translateX(6px); }\n  75% { transform: translateX(-4px); }\n}\n@keyframes popIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }",
+    "js": "const btn = document.getElementById('btn-err');\nbtn.addEventListener('click', () => {\n  btn.classList.remove('shake');\n  void btn.offsetWidth;\n  btn.classList.add('shake');\n  console.warn('Erro simulado com feedback visual Shake.');\n});"
+  },
+  "experiments": [
+    "Clique em \"Simular Erro (Shake)\" e ajuste os valores de ±6px no @keyframes shake.",
+    "Aumente 70ms para 200ms no animation-delay da lista para ver o efeito cascata mais lento."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "slug": "js-dom-eventos",
+  "title": "JavaScript DOM & Eventos com Segurança",
+  "category": "JavaScript",
+  "language": "HTML / CSS / JS",
+  "runnable": true,
+  "summary": "Selecione elementos, escute eventos de usuário e atualize a tela sem abrir brechas de XSS usando textContent.",
+  "explanation": "O DOM (Document Object Model) é a ponte entre o JavaScript e o HTML exibido na tela. Sempre prefira addEventListener para separar comportamento da marcação e use textContent (em vez de innerHTML) ao renderizar textos digitados por usuários.",
+  "tags": ["javascript", "dom", "eventos", "xss", "textContent"],
+  "references": [
+    { "group": "Seleção", "syntax": "document.querySelector('#id')", "description": "Retorna o primeiro elemento que casa com o seletor CSS." },
+    { "group": "Seleção", "syntax": "document.querySelectorAll('.item')", "description": "Retorna uma NodeList com todos os elementos correspondentes." },
+    { "group": "Eventos", "syntax": "el.addEventListener('click', fn)", "description": "Registra um ouvinte de evento sem sobrescrever outros ouvintes." },
+    { "group": "Conteúdo Seguro", "syntax": "el.textContent = valor", "description": "Insere texto puro escapando HTML automaticamente (bloqueia XSS)." },
+    { "group": "Classes", "syntax": "el.classList.toggle('ativo')", "description": "Adiciona ou remove uma classe CSS de forma limpa." },
+    { "group": "Criação", "syntax": "document.createElement('li')", "description": "Cria um nó DOM programaticamente para montar listas com segurança." }
+  ],
+  "playground": {
+    "html": "<div class=\"app\">\n  <div class=\"controls\">\n    <input id=\"task-input\" type=\"text\" placeholder=\"Digite uma tarefa...\">\n    <button id=\"add-btn\" type=\"button\">Adicionar</button>\n  </div>\n  <ul id=\"task-list\"></ul>\n</div>",
+    "css": "body { font-family: system-ui, sans-serif; padding: 20px; background: #f8fafc; color: #0f172a; }\n.app { max-width: 400px; display: grid; gap: 12px; }\n.controls { display: flex; gap: 8px; }\ninput { flex: 1; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; }\nbutton { padding: 8px 14px; border: none; border-radius: 6px; background: #2563eb; color: #fff; font-weight: 600; cursor: pointer; }\nul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }\nli { padding: 8px 12px; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; }\nli.done { text-decoration: line-through; color: #64748b; background: #f1f5f9; }",
+    "js": "const input = document.getElementById('task-input');\nconst addBtn = document.getElementById('add-btn');\nconst list = document.getElementById('task-list');\n\nfunction addTask() {\n  const text = input.value.trim();\n  if (!text) return;\n\n  const li = document.createElement('li');\n  li.textContent = text; // Seguro contra XSS!\n  li.addEventListener('click', () => li.classList.toggle('done'));\n\n  list.appendChild(li);\n  console.log('Tarefa adicionada:', text);\n  input.value = '';\n  input.focus();\n}\n\naddBtn.addEventListener('click', addTask);\ninput.addEventListener('keydown', (e) => {\n  if (e.key === 'Enter') addTask();\n});"
+  },
+  "experiments": [
+    "Tente digitar <img src=x onerror=alert(1)> no input e veja como textContent neutraliza o ataque exibindo apenas texto.",
+    "Clique em uma tarefa adicionada para riscá-la via classList.toggle('done')."
+  ]
+}

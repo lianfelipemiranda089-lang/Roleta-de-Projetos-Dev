@@ -1,0 +1,91 @@
+{
+  "slug": "html-tags-essenciais",
+  "title": "HTML Tags Essenciais: Semântica, Links, Mídia e Modais",
+  "category": "HTML",
+  "language": "HTML / CSS / JS",
+  "runnable": true,
+  "summary": "As tags mais usadas para estruturar páginas profissionais, criar menus, acordeões nativos, selects, botões e modais sem bibliotecas.",
+  "explanation": "Usar a tag certa para cada função melhora SEO, acessibilidade (leitores de tela e teclado) e reduz muito código JavaScript. Tags nativas modernas como <details>, <dialog>, <select> e <button> já trazem comportamento pronto de fábrica.",
+  "tags": [
+    "html",
+    "semantica",
+    "tags",
+    "button",
+    "select",
+    "details",
+    "dialog",
+    "links"
+  ],
+  "references": [
+    {
+      "group": "Estrutura",
+      "syntax": "<header> / <nav> / <main> / <footer>",
+      "description": "Delimitam cabeçalho, navegação, conteúdo principal e rodapé."
+    },
+    {
+      "group": "Estrutura",
+      "syntax": "<section> / <article> / <aside>",
+      "description": "Agrupam blocos temáticos, conteúdos independentes e barras laterais."
+    },
+    {
+      "group": "Texto",
+      "syntax": "<h1> até <h6> / <p> / <strong> / <em>",
+      "description": "Hierarquia de títulos, parágrafos, destaque forte e ênfase."
+    },
+    {
+      "group": "Links",
+      "syntax": "<a href=\"url\" target=\"_blank\" rel=\"noopener noreferrer\">",
+      "description": "Abre link externo em nova aba com proteção contra tabnabbing."
+    },
+    {
+      "group": "Links",
+      "syntax": "<a href=\"arquivo.pdf\" download>",
+      "description": "Força o download do arquivo em vez de apenas abrir no navegador."
+    },
+    {
+      "group": "Formulário",
+      "syntax": "<select> + <option> + <optgroup>",
+      "description": "Cria menus suspensos (dropdown) com opções agrupadas."
+    },
+    {
+      "group": "Formulário",
+      "syntax": "<textarea rows=\"4\">",
+      "description": "Campo de texto de múltiplas linhas (comentários, descrições)."
+    },
+    {
+      "group": "Botão",
+      "syntax": "<button type=\"button | submit | reset\">",
+      "description": "Mais flexível que <input>; aceita ícones e textos internos. Defina type=\"button\" fora de envios."
+    },
+    {
+      "group": "Interativo Nativo",
+      "syntax": "<details> + <summary>",
+      "description": "Cria acordeão (abrir/fechar) 100% nativo sem nenhuma linha de JS."
+    },
+    {
+      "group": "Interativo Nativo",
+      "syntax": "<dialog> + showModal()",
+      "description": "Cria janela modal nativa com fundo escurecido (::backdrop) e fechamento via Esc."
+    },
+    {
+      "group": "Mídia",
+      "syntax": "<img src=\"...\" alt=\"...\" loading=\"lazy\">",
+      "description": "Exibe imagem com descrição acessível e carregamento sob demanda."
+    },
+    {
+      "group": "Progresso",
+      "syntax": "<progress value=\"70\" max=\"100\">",
+      "description": "Barra de progresso nativa controlada por value e max."
+    }
+  ],
+  "playground": {
+    "html": "<main class=\"page\">\n  <header>\n    <h1>Componentes Nativos HTML5</h1>\n    <p>Tudo abaixo funciona com semântica real e quase zero JavaScript.</p>\n  </header>\n\n  <details open>\n    <summary>Clique para abrir/fechar (tag &lt;details&gt; sem JS)</summary>\n    <p>O elemento &lt;details&gt; resolve FAQs e menus expansíveis nativamente.</p>\n  </details>\n\n  <label class=\"field\">\n    Escolha uma stack (&lt;select&gt;):\n    <select id=\"stack\">\n      <optgroup label=\"Front-end\">\n        <option value=\"HTML + CSS\">HTML + CSS</option>\n        <option value=\"JavaScript\">JavaScript Moderno</option>\n      </optgroup>\n      <optgroup label=\"Back-end\">\n        <option value=\"Node.js\">Node.js + Express</option>\n        <option value=\"PostgreSQL\">PostgreSQL</option>\n      </optgroup>\n    </select>\n  </label>\n\n  <label class=\"field\">\n    Progresso do curso (&lt;progress&gt;):\n    <progress id=\"prog\" value=\"65\" max=\"100\"></progress>\n  </label>\n\n  <button id=\"open-modal\" type=\"button\">Abrir Modal Nativo (&lt;dialog&gt;)</button>\n\n  <dialog id=\"meu-modal\">\n    <h3>Modal 100% Nativo</h3>\n    <p>Aperte ESC ou clique no botão abaixo para fechar.</p>\n    <button id=\"close-modal\" type=\"button\">Fechar</button>\n  </dialog>\n</main>",
+    "css": "body { font-family: system-ui, sans-serif; padding: 18px; background: #f8fafc; color: #0f172a; }\n.page { max-width: 460px; display: grid; gap: 14px; background: #fff; padding: 18px; border-radius: 10px; border: 1px solid #e2e8f0; }\nh1 { margin: 0; font-size: 1.15rem; }\np { margin: 4px 0 0; font-size: 0.88rem; color: #475569; }\ndetails { border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px; background: #f8fafc; }\nsummary { font-weight: 600; cursor: pointer; font-size: 0.88rem; }\n.field { display: grid; gap: 6px; font-size: 0.84rem; font-weight: 600; }\nselect { padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; }\nprogress { width: 100%; height: 14px; }\nbutton { padding: 9px 14px; border: none; border-radius: 6px; background: #18181b; color: #fff; font-weight: 600; cursor: pointer; }\ndialog { border: 1px solid #cbd5e1; border-radius: 10px; padding: 18px; max-width: 320px; }\ndialog::backdrop { background: rgba(15, 23, 42, 0.55); }",
+    "js": "const modal = document.getElementById('meu-modal');\ndocument.getElementById('open-modal').addEventListener('click', () => modal.showModal());\ndocument.getElementById('close-modal').addEventListener('click', () => modal.close());\n\ndocument.getElementById('stack').addEventListener('change', (e) => {\n  console.log('Stack selecionada:', e.target.value);\n});"
+  },
+  "experiments": [
+    "Remova a palavra open da tag <details open> para fazê-lo iniciar fechado.",
+    "Mude value=\"65\" no <progress> para value=\"90\" ou remova o atributo value para ver o estado indeterminado.",
+    "Adicione uma nova <option> dentro do <select> e selecione-a para ver o log no Console."
+  ]
+}

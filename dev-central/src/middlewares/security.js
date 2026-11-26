@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { env } from '../config/env.js';
 
 export function requestContext(req, res, next) {
   const requestId = crypto.randomUUID();
@@ -23,26 +24,73 @@ export function requestContext(req, res, next) {
   next();
 }
 
-export function securityHeaders(_req, res, next) {
-  res.setHeader(
-    'Content-Security-Policy',
-    [
-      "default-src 'self'",
-      "script-src 'self'",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data:",
-      "connect-src 'self'",
-      "object-src 'none'",
-      "base-uri 'self'",
-      "frame-ancestors 'none'"
-    ].join('; ')
-  );
+export function securityHeaders(req, res, next) {
+  const isSandboxFrame = req.path === '/sandbox.html';
+
+  if (isSandboxFrame) {
+    res.setHeader(
+      'Content-Security-Policy',
+      [
+        "default-src 'none'",
+        "script-src 'unsafe-inline'",
+        "style-src 'unsafe-inline'",
+        "img-src data:",
+        "font-src data:",
+        "connect-src 'none'",
+        "object-src 'none'",
+        "base-uri 'none'",
+        "frame-ancestors 'self'"
+      ].join('; ')
+    );
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  } else {
+    res.setHeader(
+      'Content-Security-Policy',
+      [
+        "default-src 'self'",
+        "script-src 'self'",
+        "style-src 'self'",
+        "img-src 'self' data:",
+        "connect-src 'self'",
+        "font-src 'self'",
+        "frame-src 'self'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+        "frame-ancestors 'none'"
+      ].join('; ')
+    );
+    res.setHeader('X-Frame-Options', 'DENY');
+  }
+
   res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('Referrer-Policy', 'no-referrer');
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
   res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
-  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  res.setHeader('X-DNS-Prefetch-Control', 'off');
+  res.setHeader('X-Permitted-Cross-Domain-Policies', 'none');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
+
+  if (env.isProd) {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  }
+
   next();
+}
+
+export function allowOnlyReadMethods(req, res, next) {
+  if (req.method === 'GET' || req.method === 'HEAD') {
+    return next();
+  }
+
+  res.setHeader('Allow', 'GET, HEAD');
+  return res.status(405).json({
+    error: {
+      code: 'METHOD_NOT_ALLOWED',
+      message: `Método ${req.method} não é permitido nesta rota.`,
+      requestId: req.id
+    }
+  });
 }
 
 export function createRateLimiter({ windowMs, maxRequests, maxTrackedIps = 5000 }) {

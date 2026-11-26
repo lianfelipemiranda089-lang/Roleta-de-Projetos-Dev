@@ -1,0 +1,64 @@
+{
+  "slug": "html-tabelas-listas",
+  "title": "HTML Tabelas e Listas Estruturadas",
+  "category": "HTML",
+  "language": "HTML / CSS",
+  "runnable": true,
+  "summary": "Como construir listas ordenadas, não ordenadas, listas de definição e tabelas acessíveis com mesclagem de células.",
+  "explanation": "Listas organizam coleções e menus; tabelas existem exclusivamente para dados tabulares (relatórios, comparativos, notas). Separar <thead>, <tbody> e <tfoot> garante acessibilidade e permite estilização limpa de cabeçalhos e totais.",
+  "tags": [
+    "html",
+    "table",
+    "listas",
+    "ul",
+    "ol",
+    "colspan",
+    "rowspan"
+  ],
+  "references": [
+    {
+      "group": "Listas",
+      "syntax": "<ul> + <li>",
+      "description": "Lista não ordenada (marcadores/bullets) usada para itens e menus."
+    },
+    {
+      "group": "Listas",
+      "syntax": "<ol start=\"1\" reversed> + <li>",
+      "description": "Lista numerada/ordenada; aceita start e reversed."
+    },
+    {
+      "group": "Listas",
+      "syntax": "<dl> + <dt> + <dd>",
+      "description": "Lista de definição (termo + descrição), ótima para glossários."
+    },
+    {
+      "group": "Tabelas",
+      "syntax": "<table> + <caption>",
+      "description": "Contêiner da tabela e título descritivo para acessibilidade."
+    },
+    {
+      "group": "Tabelas",
+      "syntax": "<thead> / <tbody> / <tfoot>",
+      "description": "Separa cabeçalho, corpo de dados e rodapé de somatórios."
+    },
+    {
+      "group": "Tabelas",
+      "syntax": "<tr> / <th scope=\"col\"> / <td>",
+      "description": "Linha, célula de título (negrito/semântica) e célula de dado."
+    },
+    {
+      "group": "Mesclagem",
+      "syntax": "colspan=\"2\" / rowspan=\"2\"",
+      "description": "Faz uma célula ocupar várias colunas ou várias linhas."
+    }
+  ],
+  "playground": {
+    "html": "<table>\n  <caption>Resumo de Serviços (API)</caption>\n  <thead>\n    <tr>\n      <th scope=\"col\">Serviço</th>\n      <th scope=\"col\">Status</th>\n      <th scope=\"col\">Latência</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Auth API</td>\n      <td class=\"ok\">Online</td>\n      <td>42 ms</td>\n    </tr>\n    <tr>\n      <td>Database</td>\n      <td class=\"ok\">Online</td>\n      <td>18 ms</td>\n    </tr>\n  </tbody>\n  <tfoot>\n    <tr>\n      <td colspan=\"2\"><strong>Média geral</strong></td>\n      <td><strong>30 ms</strong></td>\n    </tr>\n  </tfoot>\n</table>",
+    "css": "body { font-family: system-ui, sans-serif; padding: 20px; background: #f8fafc; color: #0f172a; }\ntable { width: 100%; max-width: 460px; border-collapse: collapse; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }\ncaption { text-align: left; font-weight: 700; margin-bottom: 8px; font-size: 0.95rem; }\nth, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 0.88rem; }\nthead { background: #f1f5f9; }\ntfoot { background: #f8fafc; }\n.ok { color: #059669; font-weight: 600; }",
+    "js": ""
+  },
+  "experiments": [
+    "Adicione uma nova linha <tr> dentro do <tbody> com um terceiro serviço.",
+    "Troque border-collapse: collapse por separate e adicione border-spacing: 6px para ver a diferença."
+  ]
+}

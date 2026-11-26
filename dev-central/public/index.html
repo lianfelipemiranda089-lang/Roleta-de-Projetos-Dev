@@ -3,40 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DevCentral — Base de Conhecimento &amp; Código Limpo</title>
+  <title>DevCentral — Documentação &amp; Laboratório Interativo</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <div class="app-shell">
     <header class="topbar">
       <div class="topbar-left">
-        <button id="menu-toggle" class="icon-btn mobile-only" type="button" aria-label="Abrir menu lateral" aria-expanded="false">
-          <span aria-hidden="true">☰</span>
-        </button>
-        <a href="#inicio" class="brand" id="brand-home">
-          <span class="brand-badge" aria-hidden="true">DC</span>
+        <button id="menu-toggle" class="icon-btn mobile-only" type="button" aria-label="Abrir navegação" aria-expanded="false">☰</button>
+        <a href="#library" class="brand" id="brand-home">
+          <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
           <span class="brand-name">DevCentral</span>
+          <span class="brand-ver">v2</span>
         </a>
-      </div>
 
-      <div class="topbar-center">
-        <label for="search-input" class="sr-only">Buscar guias, tags ou tópicos</label>
-        <div class="search-box">
-          <input
-            id="search-input"
-            type="search"
-            placeholder="Buscar guias (ex.: sql, async, grid, express)..."
-            autocomplete="off"
-            maxlength="100"
-          >
-          <button id="clear-search" class="clear-btn hidden" type="button" aria-label="Limpar busca">×</button>
-        </div>
+        <nav class="mode-tabs" aria-label="Seções principais">
+          <button type="button" class="mode-tab active" data-mode="library">Biblioteca de Códigos</button>
+          <button type="button" class="mode-tab" data-mode="guides">Guias</button>
+          <button type="button" class="mode-tab" data-mode="playground">Playground Livre</button>
+        </nav>
       </div>
 
       <div class="topbar-right">
-        <button id="theme-toggle" class="theme-btn" type="button" aria-label="Alternar tema claro e escuro">
+        <div class="search-wrap">
+          <label for="search-input" class="sr-only">Buscar na documentação</label>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Buscar (ex.: input, flex, sql)..."
+            autocomplete="off"
+            maxlength="100"
+          >
+          <kbd id="search-kbd" class="kbd" aria-hidden="true">/</kbd>
+          <button id="clear-search" class="clear-btn hidden" type="button" aria-label="Limpar busca">×</button>
+        </div>
+
+        <button id="theme-toggle" class="theme-btn" type="button" aria-label="Alternar tema">
           <span id="theme-icon" aria-hidden="true">☀</span>
-          <span id="theme-label">Tema Claro</span>
+          <span id="theme-label">Claro</span>
         </button>
       </div>
     </header>
@@ -44,33 +48,51 @@
     <div id="sidebar-backdrop" class="backdrop hidden" aria-hidden="true"></div>
 
     <div class="workspace">
-      <aside id="sidebar" class="sidebar" aria-label="Navegação de pilares e guias">
-        <div class="sidebar-header">
-          <span class="sidebar-title">Pilares &amp; Guias</span>
-          <button id="reset-filters" class="link-btn" type="button">Todos</button>
+      <aside id="sidebar" class="sidebar" aria-label="Navegação lateral">
+        <div class="sidebar-top">
+          <span id="sidebar-heading" class="sidebar-heading">Biblioteca</span>
+          <button id="reset-filters" class="text-btn" type="button">Ver tudo</button>
         </div>
-        <nav id="sidebar-nav" class="sidebar-nav" aria-label="Lista de pilares e guias">
-          <p class="muted">Carregando navegação...</p>
-        </nav>
+        <nav id="sidebar-nav" class="sidebar-nav"></nav>
       </aside>
 
       <main id="main-content" class="main-content" tabindex="-1">
-        <section id="status-banner" class="status-banner hidden" role="status" aria-live="polite"></section>
+        <div id="status-banner" class="status-banner hidden" role="status" aria-live="polite"></div>
 
-        <section id="catalog-section" class="catalog-section">
-          <div class="section-head">
+        <!-- Visão 1: Lista da Biblioteca ou Guias -->
+        <section id="list-view" class="view-section">
+          <header class="page-header">
             <div>
-              <h1 id="catalog-title">Referência Técnica &amp; Guias</h1>
-              <p id="catalog-subtitle" class="muted">Selecione um guia para ler os trechos de código, checklists e boas práticas.</p>
+              <p id="page-kicker" class="page-kicker">BIBLIOTECA DE CÓDIGOS</p>
+              <h1 id="page-title">Referência Interativa</h1>
+              <p id="page-desc" class="page-desc">Entenda cada comando, atributo e padrão editando e testando o código ao vivo.</p>
             </div>
-            <span id="catalog-count" class="count-pill">0 guias</span>
-          </div>
+            <span id="page-count" class="count-tag">0 itens</span>
+          </header>
 
-          <div id="pillar-pills" class="pillar-pills" role="group" aria-label="Filtrar por pilar"></div>
-          <div id="guides-grid" class="guides-grid" aria-live="polite"></div>
+          <div id="filter-bar" class="filter-bar" role="group" aria-label="Filtros"></div>
+          <div id="items-grid" class="items-grid" aria-live="polite"></div>
         </section>
 
-        <article id="guide-reader" class="guide-reader hidden" aria-live="polite"></article>
+        <!-- Visão 2: Detalhe de Item da Biblioteca ou Guia -->
+        <article id="detail-view" class="view-section hidden" aria-live="polite"></article>
+
+        <!-- Visão 3: Playground Livre -->
+        <section id="sandbox-view" class="view-section hidden">
+          <header class="page-header">
+            <div>
+              <p class="page-kicker">AMBIENTE ISOLADO</p>
+              <h1>Playground Livre (HTML / CSS / JS)</h1>
+              <p class="page-desc">Teste ideias, componentes e scripts com preview instantâneo e console integrado.</p>
+            </div>
+            <div class="preset-bar">
+              <button type="button" class="btn-ghost" data-preset="blank">Limpar</button>
+              <button type="button" class="btn-ghost" data-preset="card">Exemplo Card UI</button>
+              <button type="button" class="btn-ghost" data-preset="form">Exemplo Inputs</button>
+            </div>
+          </header>
+          <div id="free-playground-mount"></div>
+        </section>
       </main>
     </div>
   </div>

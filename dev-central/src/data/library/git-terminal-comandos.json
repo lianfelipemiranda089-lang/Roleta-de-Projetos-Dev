@@ -1,0 +1,78 @@
+{
+  "slug": "git-terminal-comandos",
+  "title": "Git & Terminal: Fluxo Completo e Comandos de Emergência",
+  "category": "Git & Terminal",
+  "language": "Bash / Git",
+  "runnable": false,
+  "summary": "Todos os comandos essenciais para versionar código em equipe, trabalhar com branches, desfazer erros com segurança e caçar bugs no histórico.",
+  "explanation": "Dominar o Git tira o medo de experimentar mudanças grandes no código. Trabalhar com branches isoladas, revisar o git diff antes de commitar e saber reverter sem destruir histórico são hábitos básicos de todo dev profissional.",
+  "tags": [
+    "git",
+    "github",
+    "terminal",
+    "branch",
+    "commit",
+    "bisect",
+    "revert"
+  ],
+  "references": [
+    {
+      "group": "Início",
+      "syntax": "git init / git clone <url>",
+      "description": "Inicia repositório local ou baixa um projeto existente."
+    },
+    {
+      "group": "Rotina",
+      "syntax": "git status / git diff",
+      "description": "Mostra arquivos modificados e as linhas exatas alteradas antes do commit."
+    },
+    {
+      "group": "Rotina",
+      "syntax": "git add <arquivo> / git commit -m \"msg\"",
+      "description": "Prepara alterações na área de stage e grava o ponto no histórico."
+    },
+    {
+      "group": "Branches",
+      "syntax": "git switch -c feat/nome",
+      "description": "Cria e já muda para uma nova branch isolada."
+    },
+    {
+      "group": "Branches",
+      "syntax": "git merge feat/nome",
+      "description": "Integra as alterações da branch na branch atual."
+    },
+    {
+      "group": "Remoto",
+      "syntax": "git pull / git push -u origin branch",
+      "description": "Sincroniza commits do servidor e envia sua branch para o GitHub."
+    },
+    {
+      "group": "Pausa",
+      "syntax": "git stash / git stash pop",
+      "description": "Guarda alterações inacabadas temporariamente para trocar de tarefa."
+    },
+    {
+      "group": "Desfazer Seguro",
+      "syntax": "git restore <arquivo>",
+      "description": "Descarta alterações locais não commitadas de um arquivo específico."
+    },
+    {
+      "group": "Desfazer Seguro",
+      "syntax": "git revert <hash>",
+      "description": "Cria um novo commit desfazendo um commit antigo sem reescrever histórico."
+    },
+    {
+      "group": "Investigação",
+      "syntax": "git log --oneline -n 10 / git bisect",
+      "description": "Exibe histórico resumido e faz busca binária para achar commit culpado de um bug."
+    }
+  ],
+  "codeSnippet": {
+    "filename": "fluxo-profissional.sh",
+    "content": "# 1. Crie uma branch isolada para a nova funcionalidade\ngit switch -c feat/biblioteca-interativa\n\n# 2. Confira exatamente o que mudou antes de commitar\ngit status\ngit diff\n\n# 3. Faça commit atômico e claro\ngit add src/data/library/\ngit commit -m \"feat(library): adiciona catálogo interativo de HTML, CSS e Animações\"\n\n# 4. Envie para o repositório remoto\ngit push -u origin feat/biblioteca-interativa"
+  },
+  "experiments": [
+    "Adote o hábito de rodar git diff antes de todo git commit para pegar console.log esquecido.",
+    "Em projetos em equipe, prefira git revert em vez de git reset --hard em branches já enviadas."
+  ]
+}

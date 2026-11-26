@@ -25,5 +25,6 @@ export const env = Object.freeze({
   ROOT_DIR,
   DATA_DIR: path.join(ROOT_DIR, 'src', 'data'),
   GUIDES_DIR: path.join(ROOT_DIR, 'src', 'data', 'guides'),
+  LIBRARY_DIR: path.join(ROOT_DIR, 'src', 'data', 'library'),
   PUBLIC_DIR: path.join(ROOT_DIR, 'public')
 });

@@ -1,0 +1,29 @@
+{
+  "slug": "css-flexbox-grid",
+  "title": "CSS Flexbox & Grid: Alinhamento e Layout",
+  "category": "CSS",
+  "language": "HTML / CSS",
+  "runnable": true,
+  "summary": "Domine as propriedades essenciais de Flexbox (1D) e CSS Grid (2D) testando alterações visuais na hora.",
+  "explanation": "Flexbox organiza itens ao longo de um único eixo (linha ou coluna), sendo ideal para barras de navegação, botões e alinhamento interno de cards. CSS Grid controla linhas e colunas simultaneamente, perfeito para grades de cards e estruturas inteiras de página.",
+  "tags": ["css", "flexbox", "grid", "layout", "responsividade"],
+  "references": [
+    { "group": "Flexbox", "syntax": "display: flex", "description": "Ativa o contexto flex no container pai." },
+    { "group": "Flexbox", "syntax": "justify-content", "description": "Alinha no eixo principal (flex-start, center, space-between, space-evenly)." },
+    { "group": "Flexbox", "syntax": "align-items", "description": "Alinha no eixo cruzado (stretch, center, flex-start, flex-end)." },
+    { "group": "Flexbox", "syntax": "flex-wrap: wrap", "description": "Permite que os itens quebrem para a linha de baixo sem espremer." },
+    { "group": "CSS Grid", "syntax": "display: grid", "description": "Ativa o layout bidimensional em grade." },
+    { "group": "CSS Grid", "syntax": "grid-template-columns", "description": "Define colunas, ex.: repeat(auto-fit, minmax(140px, 1fr))." },
+    { "group": "Ambos", "syntax": "gap: 12px", "description": "Controla o espaçamento uniforme entre os filhos sem usar margens." }
+  ],
+  "playground": {
+    "html": "<div class=\"bar\">\n  <strong>Flexbox Header</strong>\n  <div class=\"actions\">\n    <button>Docs</button>\n    <button>API</button>\n  </div>\n</div>\n\n<div class=\"grid\">\n  <div class=\"box\">Card 01</div>\n  <div class=\"box\">Card 02</div>\n  <div class=\"box\">Card 03</div>\n  <div class=\"box\">Card 04</div>\n</div>",
+    "css": "body { font-family: system-ui, sans-serif; padding: 18px; background: #f8fafc; color: #0f172a; }\n\n/* Experimente mudar justify-content para center ou flex-end */\n.bar {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 12px 16px;\n  background: #ffffff;\n  border: 1px solid #e2e8f0;\n  border-radius: 8px;\n  margin-bottom: 16px;\n}\n.actions { display: flex; gap: 8px; }\n.actions button { padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f1f5f9; cursor: pointer; }\n\n/* Experimente mudar 130px para 180px ou 2 colunas fixas: repeat(2, 1fr) */\n.grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));\n  gap: 12px;\n}\n.box {\n  padding: 24px 12px;\n  text-align: center;\n  font-weight: 600;\n  background: #18181b;\n  color: #fafafa;\n  border-radius: 8px;\n}",
+    "js": ""
+  },
+  "experiments": [
+    "No .bar, altere justify-content: space-between para center e veja os elementos se juntarem.",
+    "No .grid, troque repeat(auto-fit, minmax(130px, 1fr)) por repeat(2, 1fr) para travar em 2 colunas.",
+    "Aumente gap: 12px para gap: 24px e observe o respiro automático."
+  ]
+}

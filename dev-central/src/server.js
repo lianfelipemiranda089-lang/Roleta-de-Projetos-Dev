@@ -2,9 +2,10 @@ import http from 'node:http';
 import { createApp } from './app.js';
 import { env } from './config/env.js';
 import { loadKnowledgeBase } from './services/guides.service.js';
+import { loadLibrary } from './services/library.service.js';
 
 async function bootstrap() {
-  await loadKnowledgeBase();
+  await Promise.all([loadKnowledgeBase(), loadLibrary()]);
 
   const app = createApp();
   const server = http.createServer(app);

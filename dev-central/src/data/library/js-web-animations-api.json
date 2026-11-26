@@ -1,0 +1,52 @@
+{
+  "slug": "js-web-animations-api",
+  "title": "Animações com JavaScript: Web Animations API e Scroll Reveal",
+  "category": "Animações",
+  "language": "HTML / CSS / JS",
+  "runnable": true,
+  "summary": "Controle animações dinamicamente via JavaScript usando element.animate() e dispare entradas suaves ao rolar com IntersectionObserver.",
+  "explanation": "Quando uma animação depende de coordenadas dinâmicas, cliques do usuário ou visibilidade na rolagem (scroll), o JavaScript assume com a Web Animations API (element.animate) — que roda na mesma engine performática do CSS — e o IntersectionObserver, que observa elementos sem pesar o evento de scroll.",
+  "tags": [
+    "javascript",
+    "animacoes",
+    "web-animations-api",
+    "intersection-observer",
+    "scroll"
+  ],
+  "references": [
+    {
+      "group": "WAAPI",
+      "syntax": "el.animate(keyframes, options)",
+      "description": "Dispara animação nativa via JS retornando um objeto Animation controlável."
+    },
+    {
+      "group": "WAAPI",
+      "syntax": "anim.pause() / play() / reverse() / finish()",
+      "description": "Controla reprodução, inversão ou finalização em tempo real."
+    },
+    {
+      "group": "WAAPI",
+      "syntax": "anim.finished",
+      "description": "Promise resolvida automaticamente quando a animação termina."
+    },
+    {
+      "group": "Scroll",
+      "syntax": "new IntersectionObserver(cb, { threshold: 0.2 })",
+      "description": "Detecta quando um elemento entra na tela sem travar a rolagem."
+    },
+    {
+      "group": "Loop",
+      "syntax": "requestAnimationFrame(fn)",
+      "description": "Sincroniza atualizações contínuas com a taxa de quadros do monitor."
+    }
+  ],
+  "playground": {
+    "html": "<div class=\"wrap\">\n  <div class=\"bar\">\n    <button id=\"go\" type=\"button\">Animar com JS</button>\n    <button id=\"rev\" type=\"button\">Reverter</button>\n  </div>\n  <div class=\"track\">\n    <div id=\"box\" class=\"box\">JS</div>\n  </div>\n  <p class=\"hint\">Clique em \"Animar com JS\" e depois em \"Reverter\" no meio do caminho.</p>\n</div>",
+    "css": "body { font-family: system-ui, sans-serif; padding: 18px; background: #09090b; color: #fafafa; }\n.wrap { display: grid; gap: 12px; }\n.bar { display: flex; gap: 8px; }\nbutton { padding: 8px 12px; border: 1px solid #3f3f46; border-radius: 6px; background: #18181b; color: #fff; font-weight: 600; cursor: pointer; }\n.track { padding: 14px; border-radius: 10px; background: #111114; border: 1px solid #27272a; }\n.box {\n  width: 56px; height: 56px; display: grid; place-items: center;\n  border-radius: 12px; background: #3b82f6; font-weight: 800;\n}\n.hint { margin: 0; font-size: 0.82rem; color: #a1a1aa; }",
+    "js": "const box = document.getElementById('box');\nlet currentAnim = null;\n\ndocument.getElementById('go').addEventListener('click', () => {\n  currentAnim = box.animate(\n    [\n      { transform: 'translateX(0) rotate(0deg)', background: '#3b82f6' },\n      { transform: 'translateX(220px) rotate(180deg)', background: '#10b981' }\n    ],\n    { duration: 900, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }\n  );\n  currentAnim.finished.then(() => console.log('Animação concluída!'));\n});\n\ndocument.getElementById('rev').addEventListener('click', () => {\n  if (!currentAnim) return;\n  currentAnim.reverse();\n  console.log('Direção invertida!');\n});"
+  },
+  "experiments": [
+    "Adicione um terceiro passo intermediário no array de keyframes (por exemplo, scale(1.25)).",
+    "Altere duration: 900 para 300 ou 2000 e teste o botão Reverter no meio do trajeto."
+  ]
+}

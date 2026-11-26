@@ -28,5 +28,17 @@
     "name": "Git, Terminal & DevOps",
     "icon": "terminal",
     "description": "Fluxo de versionamento no GitHub, comandos essenciais de terminal e deploy."
+  },
+  {
+    "id": "engenharia-pro",
+    "name": "Engenharia & Hábitos",
+    "icon": "shield",
+    "description": "Práticas de código limpo, depuração científica, Git e rotina de desenvolvedores seniores."
+  },
+  {
+    "id": "referencias",
+    "name": "Sites & Radar Dev",
+    "icon": "compass",
+    "description": "Curadoria das melhores documentações, ferramentas interativas e trilhas técnicas."
   }
 ]

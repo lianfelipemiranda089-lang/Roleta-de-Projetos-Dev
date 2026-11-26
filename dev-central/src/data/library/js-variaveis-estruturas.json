@@ -1,0 +1,64 @@
+{
+  "slug": "js-variaveis-estruturas",
+  "title": "JavaScript Fundamentos: Variáveis, Fluxo e Operadores Modernos",
+  "category": "JavaScript",
+  "language": "JavaScript",
+  "runnable": true,
+  "summary": "Como declarar dados com const/let, tomar decisões limpas, iterar coleções e usar destructuring, spread, ?. e ??.",
+  "explanation": "O JavaScript moderno prioriza const por padrão (mudando para let apenas quando a variável precisa ser reatribuída) e oferece operadores enxutos que evitam erros de \"Cannot read properties of undefined\" em produção.",
+  "tags": [
+    "javascript",
+    "const",
+    "let",
+    "loops",
+    "destructuring",
+    "spread",
+    "optional-chaining"
+  ],
+  "references": [
+    {
+      "group": "Variáveis",
+      "syntax": "const / let",
+      "description": "const impede reatribuição (padrão); let permite reatribuir. Evite var."
+    },
+    {
+      "group": "Condição",
+      "syntax": "condicao ? valorSim : valorNao",
+      "description": "Operador ternário para escolhas curtas e legíveis."
+    },
+    {
+      "group": "Segurança",
+      "syntax": "usuario?.perfil?.nome",
+      "description": "Optional Chaining: retorna undefined em vez de quebrar se algo for nulo."
+    },
+    {
+      "group": "Segurança",
+      "syntax": "valor ?? \"padrão\"",
+      "description": "Nullish Coalescing: usa o padrão apenas se valor for null ou undefined (respeita 0 e \"\")."
+    },
+    {
+      "group": "Loops",
+      "syntax": "for (const item of lista)",
+      "description": "Percorre arrays, strings, Maps e Sets de forma limpa."
+    },
+    {
+      "group": "Desestruturação",
+      "syntax": "const { nome, idade } = usuario",
+      "description": "Extrai propriedades de objetos ou arrays diretamente em variáveis."
+    },
+    {
+      "group": "Spread / Rest",
+      "syntax": "{ ...base, ativo: true }",
+      "description": "Cria cópias rasas e combina objetos/arrays sem mutar o original."
+    }
+  ],
+  "playground": {
+    "html": "<p style=\"font-family:system-ui;padding:16px;color:#334155\">Veja o resultado no <strong>Console</strong> abaixo e altere o objeto <code>usuario</code> na aba JS.</p>",
+    "css": "",
+    "js": "const usuario = {\n  nome: 'Lucas',\n  pontos: 0,\n  perfil: { cargo: 'Dev Back-end' }\n};\n\n// Optional chaining (?.) evita crash mesmo se endereco não existir\nconst cidade = usuario.endereco?.cidade ?? 'Não informada';\n\n// Nullish coalescing (??) preserva 0 (diferente de || que trocaria 0 pelo padrão)\nconst pontosComNullish = usuario.pontos ?? 100;\nconst pontosComOu = usuario.pontos || 100;\n\n// Destructuring + Spread imutável\nconst { nome, perfil: { cargo } } = usuario;\nconst usuarioAtualizado = { ...usuario, ativo: true };\n\nconsole.log('Nome e cargo:', nome, '-', cargo);\nconsole.log('Cidade:', cidade);\nconsole.log('Pontos com ?? :', pontosComNullish, '| Pontos com || :', pontosComOu);\nconsole.log('Cópia atualizada:', usuarioAtualizado);"
+  },
+  "experiments": [
+    "Adicione endereco: { cidade: \"Florianópolis\" } no objeto usuario e veja o Console atualizar.",
+    "Mude pontos: 0 para pontos: null e observe a diferença entre ?? e ||."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "slug": "sql-comandos",
+  "title": "SQL Essencial: CRUD, JOINs e Consultas Seguras",
+  "category": "SQL & Dados",
+  "language": "SQL",
+  "runnable": false,
+  "summary": "Referência direta dos comandos SQL mais usados no dia a dia de back-end com foco em integridade e proteção contra SQL Injection.",
+  "explanation": "SQL (Structured Query Language) padroniza como criamos tabelas, inserimos registros e consultamos dados relacionais. A regra número um em produção é sempre usar parâmetros ($1, ?) no código da aplicação e nunca montar queries concatenando strings vindas do usuário.",
+  "tags": ["sql", "crud", "join", "seguranca", "banco-de-dados"],
+  "references": [
+    { "group": "Estrutura (DDL)", "syntax": "CREATE TABLE nome (...)", "description": "Define colunas, tipos, PRIMARY KEY e chaves estrangeiras." },
+    { "group": "Escrita (DML)", "syntax": "INSERT INTO tabela (cols) VALUES ($1, $2)", "description": "Insere um novo registro usando parâmetros seguros." },
+    { "group": "Leitura (DQL)", "syntax": "SELECT col1, col2 FROM tabela WHERE ...", "description": "Busca apenas as colunas necessárias (evite SELECT * em produção)." },
+    { "group": "Relacionamento", "syntax": "INNER JOIN / LEFT JOIN", "description": "Combina dados de tabelas relacionadas por chave." },
+    { "group": "Agregação", "syntax": "GROUP BY / COUNT() / SUM()", "description": "Agrupa linhas para calcular totais, médias e contagens." },
+    { "group": "Alteração Segura", "syntax": "UPDATE tabela SET col = $1 WHERE id = $2", "description": "Sempre valide a cláusula WHERE antes de atualizar ou deletar." }
+  ],
+  "codeSnippet": {
+    "filename": "consultas-producao.sql",
+    "content": "-- 1. Criar tabela de usuários com restrições de integridade\nCREATE TABLE users (\n  id SERIAL PRIMARY KEY,\n  name VARCHAR(120) NOT NULL,\n  email VARCHAR(160) NOT NULL UNIQUE,\n  active BOOLEAN NOT NULL DEFAULT TRUE,\n  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);\n\n-- 2. Inserção parametrizada (Node.js -> pool.query(sql, ['Ana', 'ana@dev.io']))\nINSERT INTO users (name, email)\nVALUES ($1, $2)\nRETURNING id, name, email;\n\n-- 3. Consulta filtrada e ordenada com paginação\nSELECT id, name, email\nFROM users\nWHERE active = TRUE\nORDER BY created_at DESC\nLIMIT 20 OFFSET 0;"
+  },
+  "experiments": [
+    "Pratique sempre declarar as colunas explicitamente no SELECT em vez de usar SELECT *.",
+    "Antes de rodar qualquer DELETE ou UPDATE manual, teste a mesma cláusula WHERE com um SELECT."
+  ]
+}

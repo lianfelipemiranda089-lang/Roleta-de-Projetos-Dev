@@ -1,0 +1,66 @@
+{
+  "slug": "guia-completo-animacoes-web",
+  "title": "Guia Definitivo de Animações Web a 60 FPS",
+  "pillar": "frontend",
+  "level": "Intermediário",
+  "readTime": "8 min",
+  "summary": "Aprenda como o navegador renderiza animações, por que animar apenas transform e opacity, como escolher durações e curvas profissionais e respeitar acessibilidade.",
+  "tags": [
+    "animacoes",
+    "css",
+    "performance",
+    "60fps",
+    "cubic-bezier",
+    "gpu",
+    "ux"
+  ],
+  "sections": [
+    {
+      "title": "1. O segredo dos 60 FPS: GPU (Composite) vs Reflow",
+      "explanation": "Para uma animação parecer fluida, o navegador precisa desenhar cada quadro em menos de 16,6ms. Propriedades como width, height, top, left e margin forçam o navegador a recalcular o layout da página inteira a cada frame (Layout Thrashing). Já transform e opacity rodam direto na camada de composição (GPU), mantendo fluidez até em celulares simples.",
+      "code": {
+        "language": "css",
+        "filename": "gpu-vs-reflow.css",
+        "content": "/* EVITE: força recálculo de layout em todos os elementos vizinhos */\n.card-lento {\n  transition: margin-top 250ms ease, width 250ms ease;\n}\n.card-lento:hover {\n  margin-top: -6px;\n}\n\n/* PREFIRA: roda direto na GPU sem empurrar o layout */\n.card-fluido {\n  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;\n}\n.card-fluido:hover {\n  transform: translateY(-4px);\n}"
+      },
+      "tip": "Use will-change: transform apenas em elementos que realmente animam com frequência; exagerar no will-change consome memória de vídeo à toa."
+    },
+    {
+      "title": "2. Tabela prática de durações e curvas (Timing)",
+      "explanation": "Animações profissionais são quase imperceptíveis: rápidas o bastante para não atrasar o usuário, suaves o bastante para guiar o olhar. Use curvas ease-out para elementos que entram na tela (começam rápido e freiam suave) e ease-in para elementos que saem.",
+      "code": {
+        "language": "css",
+        "filename": "tokens-animacao.css",
+        "content": ":root {\n  /* Micro-interações: hover em botões, checkboxes, ícones */\n  --dur-fast: 150ms;\n\n  /* Transições médias: cards, menus dropdown, modais */\n  --dur-medium: 260ms;\n\n  /* Movimentos amplos: gavetas laterais (drawers), troca de tela */\n  --dur-slow: 380ms;\n\n  /* Curvas profissionais */\n  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1); /* entrada natural */\n  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);     /* deslocamento na tela */\n}"
+      },
+      "tip": "Se uma transição demora mais de 500ms em um menu ou botão, o usuário sente que o site está lento."
+    },
+    {
+      "title": "3. Quando escolher Transition, @keyframes ou JavaScript",
+      "explanation": "Não complique a ferramenta: use transition para respostas simples de estado (:hover, :focus, classe .open); use @keyframes para ciclos contínuos (spinner, pulse, shimmer) ou sequências de 3+ passos; use Web Animations API (element.animate) ou IntersectionObserver quando a animação depender de dados dinâmicos ou rolagem.",
+      "code": {
+        "language": "javascript",
+        "filename": "scroll-reveal.js",
+        "content": "// Revela elementos suavemente conforme entram na área visível\nconst observer = new IntersectionObserver(\n  (entries) => {\n    for (const entry of entries) {\n      if (entry.isIntersecting) {\n        entry.target.classList.add('is-visible');\n        observer.unobserve(entry.target); // anima só uma vez\n      }\n    }\n  },\n  { threshold: 0.15 }\n);\n\ndocument.querySelectorAll('.reveal').forEach((el) => observer.observe(el));"
+      },
+      "tip": "Chamar observer.unobserve(entry.target) evita que a página fique piscando toda vez que o usuário sobe e desce a rolagem."
+    },
+    {
+      "title": "4. Acessibilidade obrigatória: prefers-reduced-motion",
+      "explanation": "Algumas pessoas sofrem tontura ou desconforto com movimentos paralaxe e deslocamentos grandes. Com uma única media query CSS, seu site respeita automaticamente a configuração do Windows, macOS, Android ou iOS.",
+      "code": {
+        "language": "css",
+        "filename": "acessibilidade-motion.css",
+        "content": "@media (prefers-reduced-motion: reduce) {\n  *,\n  *::before,\n  *::after {\n    animation-duration: 0.01ms !important;\n    animation-iteration-count: 1 !important;\n    transition-duration: 0.01ms !important;\n    scroll-behavior: auto !important;\n  }\n}"
+      },
+      "tip": "Você pode testar esse modo no Chrome DevTools pressionando Ctrl+Shift+P e digitando \"Emulate CSS prefers-reduced-motion: reduce\"."
+    }
+  ],
+  "checklist": [
+    "Animar prioritariamente transform e opacity (evitar animar width, height, top e left).",
+    "Manter interações de botão e hover entre 120ms e 220ms.",
+    "Usar ease-out para entradas e ease-in para saídas.",
+    "Incluir sempre @media (prefers-reduced-motion: reduce) na folha de estilos.",
+    "Validar a fluidez na aba Performance do DevTools sem quedas bruscas de FPS."
+  ]
+}

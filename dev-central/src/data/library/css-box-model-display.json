@@ -1,0 +1,69 @@
+{
+  "slug": "css-box-model-display",
+  "title": "CSS Box Model, Display e Overflow",
+  "category": "CSS",
+  "language": "HTML / CSS",
+  "runnable": true,
+  "summary": "Entenda como todo elemento calcula largura, espaçamento interno/externo, modos de exibição e rolagem de conteúdo.",
+  "explanation": "No CSS, todo elemento é uma caixa composta por Conteúdo + Padding + Border + Margin. Definir box-sizing: border-box evita que padding e borda estourem a largura desejada. Já a propriedade display decide se o elemento ocupa a linha inteira (block), flui com o texto (inline) ou organiza filhos (flex/grid).",
+  "tags": [
+    "css",
+    "box-model",
+    "display",
+    "overflow",
+    "padding",
+    "margin",
+    "border-box"
+  ],
+  "references": [
+    {
+      "group": "Box Model",
+      "syntax": "box-sizing: border-box",
+      "description": "Inclui padding e border dentro do width/height declarados."
+    },
+    {
+      "group": "Box Model",
+      "syntax": "padding / margin",
+      "description": "padding cria respiro interno; margin cria distância externa entre caixas."
+    },
+    {
+      "group": "Display",
+      "syntax": "display: block",
+      "description": "Ocupa 100% da largura disponível e quebra linha antes e depois."
+    },
+    {
+      "group": "Display",
+      "syntax": "display: inline",
+      "description": "Fica na mesma linha do texto; ignora width e height fixos."
+    },
+    {
+      "group": "Display",
+      "syntax": "display: inline-block",
+      "description": "Fica na mesma linha, mas respeita width, height e padding vertical."
+    },
+    {
+      "group": "Display",
+      "syntax": "display: none",
+      "description": "Remove o elemento da tela e do fluxo (não ocupa espaço)."
+    },
+    {
+      "group": "Visibilidade",
+      "syntax": "visibility: hidden / opacity: 0",
+      "description": "Oculta visualmente, mas o elemento continua ocupando espaço no layout."
+    },
+    {
+      "group": "Overflow",
+      "syntax": "overflow: hidden | auto | scroll",
+      "description": "Controla o que acontece quando o conteúdo ultrapassa o tamanho da caixa."
+    }
+  ],
+  "playground": {
+    "html": "<div class=\"demo\">\n  <div class=\"box border-box\">border-box (largura real = 220px)</div>\n  <div class=\"box content-box\">content-box (220px + padding + borda)</div>\n\n  <div class=\"scroll-box\">\n    <strong>overflow: auto</strong> — Quando o texto ultrapassa a altura fixa de 90px, a barra de rolagem aparece automaticamente sem vazar para fora da caixa. Experimente trocar para overflow: hidden ou visible no CSS!\n  </div>\n</div>",
+    "css": "body { font-family: system-ui, sans-serif; padding: 18px; background: #f8fafc; color: #0f172a; }\n.demo { display: grid; gap: 14px; }\n.box {\n  width: 220px;\n  padding: 16px;\n  border: 6px solid #2563eb;\n  background: #dbeafe;\n  font-size: 0.84rem;\n  font-weight: 600;\n}\n.border-box { box-sizing: border-box; }\n.content-box { box-sizing: content-box; border-color: #ef4444; background: #fee2e2; }\n\n.scroll-box {\n  width: 280px;\n  height: 90px;\n  padding: 10px;\n  border: 1px solid #cbd5e1;\n  border-radius: 8px;\n  background: #fff;\n  font-size: 0.85rem;\n  overflow: auto;\n}",
+    "js": ""
+  },
+  "experiments": [
+    "Compare visualmente a largura das duas caixas mesmo ambas tendo width: 220px.",
+    "Mude overflow: auto para overflow: hidden e depois para overflow: visible no .scroll-box."
+  ]
+}

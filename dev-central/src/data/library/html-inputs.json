@@ -1,0 +1,202 @@
+{
+  "slug": "html-inputs",
+  "title": "HTML Inputs: Todos os 22 Tipos e Atributos",
+  "category": "HTML",
+  "language": "HTML / CSS / JS",
+  "runnable": true,
+  "summary": "Catálogo completo dos 22 tipos oficiais de <input> e seus atributos de controle, validação nativa e acessibilidade.",
+  "explanation": "A tag <input> sozinha cria uma caixa de texto simples (type=\"text\"). Alterando apenas o atributo type, ela se transforma em 22 controles diferentes: senhas, calendários, seletores de cor, uploads, sliders e botões. Combinando com atributos como required, min, max, step, pattern e readonly, você controla totalmente o comportamento sem precisar reinventar validação manual.",
+  "tags": [
+    "html",
+    "input",
+    "formularios",
+    "checkbox",
+    "radio",
+    "password",
+    "email",
+    "file",
+    "validacao"
+  ],
+  "references": [
+    {
+      "group": "Texto & Dados",
+      "syntax": "type=\"text\"",
+      "description": "Caixa de texto comum de linha única (padrão do <input> sozinho)."
+    },
+    {
+      "group": "Texto & Dados",
+      "syntax": "type=\"password\"",
+      "description": "Oculta os caracteres digitados com bolinhas ou asteriscos."
+    },
+    {
+      "group": "Texto & Dados",
+      "syntax": "type=\"email\"",
+      "description": "Valida formato de e-mail (@) e abre teclado específico no celular."
+    },
+    {
+      "group": "Texto & Dados",
+      "syntax": "type=\"number\"",
+      "description": "Aceita números e exibe setas de incremento; usa min, max e step."
+    },
+    {
+      "group": "Texto & Dados",
+      "syntax": "type=\"tel\"",
+      "description": "Abre teclado numérico em celulares (não restringe símbolos como + e -)."
+    },
+    {
+      "group": "Texto & Dados",
+      "syntax": "type=\"url\"",
+      "description": "Valida se o valor é um endereço web completo (https://...)."
+    },
+    {
+      "group": "Texto & Dados",
+      "syntax": "type=\"search\"",
+      "description": "Campo de pesquisa com botão rápido de limpar na maioria dos navegadores."
+    },
+    {
+      "group": "Seleção & Visual",
+      "syntax": "type=\"checkbox\"",
+      "description": "Caixa de marcação independente; permite selecionar várias opções."
+    },
+    {
+      "group": "Seleção & Visual",
+      "syntax": "type=\"radio\"",
+      "description": "Escolha única dentro de um grupo com o mesmo atributo name."
+    },
+    {
+      "group": "Seleção & Visual",
+      "syntax": "type=\"range\"",
+      "description": "Barra deslizante (slider) para valores contínuos como volume ou preço."
+    },
+    {
+      "group": "Seleção & Visual",
+      "syntax": "type=\"color\"",
+      "description": "Seletor visual de cor que retorna código hexadecimal (#rrggbb)."
+    },
+    {
+      "group": "Datas & Horas",
+      "syntax": "type=\"date\"",
+      "description": "Calendário nativo para dia, mês e ano (valor YYYY-MM-DD)."
+    },
+    {
+      "group": "Datas & Horas",
+      "syntax": "type=\"time\"",
+      "description": "Seletor de hora e minuto (HH:MM)."
+    },
+    {
+      "group": "Datas & Horas",
+      "syntax": "type=\"datetime-local\"",
+      "description": "Combina calendário e relógio no fuso horário do dispositivo."
+    },
+    {
+      "group": "Datas & Horas",
+      "syntax": "type=\"month\"",
+      "description": "Seleciona apenas mês e ano (útil para validade de cartão)."
+    },
+    {
+      "group": "Datas & Horas",
+      "syntax": "type=\"week\"",
+      "description": "Seleciona uma semana específica do ano (ex.: 2026-W42)."
+    },
+    {
+      "group": "Arquivos & Ocultos",
+      "syntax": "type=\"file\"",
+      "description": "Abre o seletor de arquivos do sistema; combina com accept e multiple."
+    },
+    {
+      "group": "Arquivos & Ocultos",
+      "syntax": "type=\"hidden\"",
+      "description": "Campo invisível que envia metadados (como ID ou token) no form."
+    },
+    {
+      "group": "Botões",
+      "syntax": "type=\"submit\"",
+      "description": "Botão que valida e envia todos os dados do <form>."
+    },
+    {
+      "group": "Botões",
+      "syntax": "type=\"reset\"",
+      "description": "Restaura todos os campos do <form> para o valor inicial."
+    },
+    {
+      "group": "Botões",
+      "syntax": "type=\"button\"",
+      "description": "Botão clicável sem ação padrão, controlado via JavaScript."
+    },
+    {
+      "group": "Botões",
+      "syntax": "type=\"image\"",
+      "description": "Atua como submit usando uma imagem (src e alt) no lugar do botão."
+    },
+    {
+      "group": "Atributos",
+      "syntax": "placeholder=\"...\"",
+      "description": "Texto de dica cinza dentro do campo (não substitui o <label>)."
+    },
+    {
+      "group": "Atributos",
+      "syntax": "required",
+      "description": "Impede o envio do formulário se o campo estiver vazio."
+    },
+    {
+      "group": "Atributos",
+      "syntax": "disabled",
+      "description": "Desabilita interação e exclui o campo dos dados enviados."
+    },
+    {
+      "group": "Atributos",
+      "syntax": "readonly",
+      "description": "Permite ler e copiar o valor, bloqueia edição, mas envia no form."
+    },
+    {
+      "group": "Atributos",
+      "syntax": "checked",
+      "description": "Faz checkbox ou radio iniciar já marcado."
+    },
+    {
+      "group": "Atributos",
+      "syntax": "min / max / step",
+      "description": "Define mínimo, máximo e salto em number, range e datas."
+    },
+    {
+      "group": "Atributos",
+      "syntax": "minlength / maxlength",
+      "description": "Define tamanho mínimo e máximo de caracteres aceitos."
+    },
+    {
+      "group": "Atributos",
+      "syntax": "pattern=\"regex\"",
+      "description": "Valida o texto contra uma expressão regular nativa."
+    },
+    {
+      "group": "Atributos",
+      "syntax": "multiple",
+      "description": "Permite escolher vários arquivos (file) ou e-mails (email)."
+    },
+    {
+      "group": "Atributos",
+      "syntax": "accept=\"image/*,.pdf\"",
+      "description": "Filtra quais tipos de arquivo podem ser selecionados no type=\"file\"."
+    },
+    {
+      "group": "Atributos",
+      "syntax": "autocomplete=\"email\"",
+      "description": "Orienta o preenchimento automático do navegador."
+    },
+    {
+      "group": "Atributos",
+      "syntax": "value=\"...\"",
+      "description": "Define o valor inicial do campo ou o texto de um botão input."
+    }
+  ],
+  "playground": {
+    "html": "<form id=\"inputs-lab\" class=\"lab\">\n  <h2>Laboratório de Inputs</h2>\n\n  <div class=\"grid\">\n    <label>Texto (text)\n      <input name=\"nome\" type=\"text\" placeholder=\"Seu nome\" minlength=\"2\" required>\n    </label>\n    <label>Senha (password)\n      <input name=\"senha\" type=\"password\" value=\"segredo123\" minlength=\"6\" required>\n    </label>\n    <label>E-mail (email)\n      <input name=\"email\" type=\"email\" placeholder=\"dev@site.com\" required>\n    </label>\n    <label>Número (number 18-99)\n      <input name=\"idade\" type=\"number\" min=\"18\" max=\"99\" step=\"1\" value=\"25\">\n    </label>\n    <label>Data (date)\n      <input name=\"nascimento\" type=\"date\" value=\"2000-05-15\">\n    </label>\n    <label>Cor (color)\n      <input id=\"cor\" name=\"cor\" type=\"color\" value=\"#2563eb\">\n    </label>\n  </div>\n\n  <label>Volume (range): <strong id=\"vol-out\">60</strong>%\n    <input id=\"vol\" name=\"volume\" type=\"range\" min=\"0\" max=\"100\" step=\"5\" value=\"60\">\n  </label>\n\n  <fieldset class=\"group\">\n    <legend>Plano (radio — escolha única)</legend>\n    <label class=\"inline\"><input type=\"radio\" name=\"plano\" value=\"free\" checked> Gratuito</label>\n    <label class=\"inline\"><input type=\"radio\" name=\"plano\" value=\"pro\"> Profissional</label>\n  </fieldset>\n\n  <label class=\"inline\">\n    <input type=\"checkbox\" name=\"termos\" checked required> Aceito os termos (checkbox)\n  </label>\n\n  <div class=\"actions\">\n    <input type=\"submit\" value=\"Enviar e inspecionar\">\n    <input type=\"reset\" value=\"Resetar\">\n  </div>\n</form>",
+    "css": "body { font-family: system-ui, sans-serif; padding: 18px; background: #f8fafc; color: #0f172a; }\n.lab { max-width: 520px; display: grid; gap: 12px; background: #fff; padding: 18px; border: 1px solid #e2e8f0; border-radius: 10px; }\nh2 { margin: 0; font-size: 1.05rem; }\n.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }\nlabel { display: grid; gap: 4px; font-size: 0.82rem; font-weight: 600; color: #334155; }\nlabel.inline { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; margin-right: 12px; }\ninput:not([type=\"checkbox\"]):not([type=\"radio\"]):not([type=\"range\"]):not([type=\"submit\"]):not([type=\"reset\"]) {\n  padding: 7px 9px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.88rem;\n}\ninput[type=\"color\"] { height: 34px; padding: 2px; cursor: pointer; }\nfieldset.group { border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px 10px; margin: 0; }\nlegend { font-size: 0.78rem; color: #64748b; padding: 0 4px; }\n.actions { display: flex; gap: 8px; }\ninput[type=\"submit\"] { flex: 1; padding: 9px; border: none; border-radius: 6px; background: #2563eb; color: #fff; font-weight: 600; cursor: pointer; }\ninput[type=\"reset\"] { padding: 9px 14px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f1f5f9; cursor: pointer; }",
+    "js": "const form = document.getElementById('inputs-lab');\nconst vol = document.getElementById('vol');\nconst volOut = document.getElementById('vol-out');\nconst cor = document.getElementById('cor');\n\nvol.addEventListener('input', () => { volOut.textContent = vol.value; });\ncor.addEventListener('input', () => {\n  form.querySelector('input[type=\"submit\"]').style.background = cor.value;\n});\n\nform.addEventListener('submit', (e) => {\n  e.preventDefault();\n  const payload = Object.fromEntries(new FormData(form).entries());\n  payload.termos = form.elements.termos.checked;\n  console.log('Dados coletados:', payload);\n});"
+  },
+  "experiments": [
+    "Troque type=\"password\" por type=\"text\" para visualizar a senha digitada.",
+    "Adicione disabled ou readonly no campo idade e observe no Console qual deles continua sendo enviado.",
+    "Troque type=\"date\" por type=\"datetime-local\" ou type=\"month\" e veja o seletor mudar imediatamente."
+  ]
+}

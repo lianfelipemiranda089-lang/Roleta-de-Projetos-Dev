@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevCentral Sandbox</title>
+  <style id="sandbox-base">
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+  </style>
+  <style id="user-css"></style>
+</head>
+<body>
+  <div id="app-root"></div>
+  <script>
+    (function () {
+      let currentRunId = null;
+
+      function formatArg(arg) {
+        if (arg === null) return 'null';
+        if (arg === undefined) return 'undefined';
+        if (typeof arg === 'string') return arg;
+        if (arg instanceof Error) return arg.name + ': ' + arg.message;
+        try {
+          return JSON.stringify(arg, null, 2);
+        } catch {
+          return String(arg);
+        }
+      }
+
+      function emit(level, args) {
+        if (!currentRunId) return;
+        const message = Array.from(args).map(formatArg).join(' ');
+        window.parent.postMessage(
+          { type: 'SANDBOX_LOG', runId: currentRunId, level: level, message: message },
+          '*'
+        );
+      }
+
+      ['log', 'info', 'warn', 'error'].forEach(function (level) {
+        console[level] = function () {
+          emit(level, arguments);
+        };
+      });
+
+      window.addEventListener('error', function (event) {
+        emit('error', [event.message || 'Erro de execução']);
+      });
+
+      window.addEventListener('unhandledrejection', function (event) {
+        emit('error', ['Promise rejeitada:', event.reason]);
+      });
+
+      window.addEventListener('message', function (event) {
+        if (event.source !== window.parent) return;
+        const data = event.data;
+        if (!data || data.type !== 'RUN_CODE') return;
+
+        currentRunId = data.runId;
+        document.getElementById('user-css').textContent = String(data.css || '');
+        const root = document.getElementById('app-root');
+        root.innerHTML = String(data.html || '');
+
+        // Evita navegação real caso o usuário teste <form> sem preventDefault
+        root.addEventListener('submit', function (e) {
+          if (!e.defaultPrevented) {
+            e.preventDefault();
+            emit('info', ['[Preview] Submissão de formulário interceptada com segurança.']);
+          }
+        });
+
+        const jsCode = String(data.js || '').trim();
+        if (jsCode) {
+          try {
+            const script = document.createElement('script');
+            script.textContent = '(function(){\n' + jsCode + '\n})();';
+            document.body.appendChild(script);
+          } catch (err) {
+            emit('error', [err]);
+          }
+        }
+      });
+
+      window.parent.postMessage({ type: 'SANDBOX_READY' }, '*');
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+{
+  "slug": "css-cores-tipografia-efeitos",
+  "title": "CSS Cores, Tipografia Fluida, Sombras e Glassmorphism",
+  "category": "CSS",
+  "language": "HTML / CSS",
+  "runnable": true,
+  "summary": "Domine variáveis CSS, gradientes, clamp() responsivo, sombras em camadas e efeito vidro fosco (backdrop-filter).",
+  "explanation": "Interfaces com aparência profissional raramente usam cores aleatórias ou sombras pesadas. O segredo está em variáveis CSS (:root), tipografia que escala com clamp(), sombras suaves com baixa opacidade e contraste legível.",
+  "tags": [
+    "css",
+    "cores",
+    "gradiente",
+    "sombra",
+    "tipografia",
+    "clamp",
+    "backdrop-filter"
+  ],
+  "references": [
+    {
+      "group": "Variáveis",
+      "syntax": "--cor-primaria: #2563eb; var(--cor-primaria)",
+      "description": "Centraliza paleta e facilita modo claro/escuro."
+    },
+    {
+      "group": "Tipografia",
+      "syntax": "font-size: clamp(1rem, 2.5vw, 1.8rem)",
+      "description": "Escala o texto suavemente entre um tamanho mínimo e máximo."
+    },
+    {
+      "group": "Gradientes",
+      "syntax": "linear-gradient(135deg, #2563eb, #06b6d4)",
+      "description": "Cria transição suave de cores em ângulo personalizado."
+    },
+    {
+      "group": "Profundidade",
+      "syntax": "box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2)",
+      "description": "Adiciona elevação natural (eixo X, Y, desfoque, expansão, cor)."
+    },
+    {
+      "group": "Vidro Fosco",
+      "syntax": "backdrop-filter: blur(12px)",
+      "description": "Desfoca o que está atrás de um elemento semitransparente."
+    },
+    {
+      "group": "Imagens",
+      "syntax": "object-fit: cover",
+      "description": "Preenche o contêiner sem distorcer a proporção da imagem."
+    },
+    {
+      "group": "Filtros",
+      "syntax": "filter: grayscale(100%) / brightness(1.1)",
+      "description": "Aplica efeitos visuais em imagens, ícones ou cards."
+    }
+  ],
+  "playground": {
+    "html": "<div class=\"hero\">\n  <div class=\"glass-card\">\n    <span class=\"pill\">CSS MODERNO</span>\n    <h1>Tipografia Fluida &amp; Efeito Vidro</h1>\n    <p>Experimente alterar o ângulo do gradiente, o blur ou a opacidade no CSS.</p>\n  </div>\n</div>",
+    "css": "body { margin: 0; font-family: system-ui, sans-serif; }\n.hero {\n  min-height: 250px;\n  display: grid;\n  place-items: center;\n  padding: 24px;\n  background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 55%, #0891b2 100%);\n}\n.glass-card {\n  max-width: 400px;\n  padding: 22px;\n  border-radius: 14px;\n  background: rgba(255, 255, 255, 0.12);\n  border: 1px solid rgba(255, 255, 255, 0.24);\n  backdrop-filter: blur(12px);\n  box-shadow: 0 18px 36px -12px rgba(2, 6, 23, 0.55);\n  color: #ffffff;\n}\n.pill {\n  display: inline-block;\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.08em;\n  padding: 3px 8px;\n  border-radius: 999px;\n  background: rgba(255, 255, 255, 0.18);\n}\nh1 { margin: 10px 0 6px; font-size: clamp(1.15rem, 3vw, 1.55rem); line-height: 1.25; }\np { margin: 0; font-size: 0.88rem; color: rgba(255, 255, 255, 0.86); }",
+    "js": ""
+  },
+  "experiments": [
+    "Mude o ângulo 135deg do linear-gradient para 45deg ou troque #1d4ed8 por #7c3aed.",
+    "Altere rgba(255, 255, 255, 0.12) para 0.25 e observe a transparência do vidro."
+  ]
+}

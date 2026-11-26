@@ -1,0 +1,68 @@
+{
+  "slug": "js-strings-numeros-datas",
+  "title": "JavaScript Strings, Math e Formatação de Moeda/Data (Intl)",
+  "category": "JavaScript",
+  "language": "JavaScript",
+  "runnable": true,
+  "summary": "Os métodos indispensáveis para manipular textos, cálculos e formatar Reais (R$) e datas brasileiras nativamente.",
+  "explanation": "Antes de instalar bibliotecas externas para formatar dinheiro, datas ou manipular textos, o próprio JavaScript já traz a API nativa Intl e dezenas de métodos diretos em String e Math.",
+  "tags": [
+    "javascript",
+    "strings",
+    "math",
+    "intl",
+    "moeda",
+    "datas"
+  ],
+  "references": [
+    {
+      "group": "Strings",
+      "syntax": "str.trim() / toLowerCase() / toUpperCase()",
+      "description": "Remove espaços extras nas pontas e normaliza caixa."
+    },
+    {
+      "group": "Strings",
+      "syntax": "str.includes(\"x\") / startsWith(\"x\")",
+      "description": "Verifica se o texto contém ou começa com determinado trecho."
+    },
+    {
+      "group": "Strings",
+      "syntax": "str.split(\",\") / arr.join(\"-\")",
+      "description": "Quebra uma string em array e junta array de volta em string."
+    },
+    {
+      "group": "Strings",
+      "syntax": "str.replaceAll(\"a\", \"b\")",
+      "description": "Substitui todas as ocorrências de um texto."
+    },
+    {
+      "group": "Strings",
+      "syntax": "str.padStart(4, \"0\")",
+      "description": "Preenche à esquerda (ex.: \"7\" -> \"0007\")."
+    },
+    {
+      "group": "Números",
+      "syntax": "Math.round / floor / ceil / random",
+      "description": "Arredondamentos e geração de números aleatórios."
+    },
+    {
+      "group": "Formatação",
+      "syntax": "Intl.NumberFormat(\"pt-BR\", { style: \"currency\", currency: \"BRL\" })",
+      "description": "Formata valores monetários no padrão R$ 1.250,50 sem gambiarra."
+    },
+    {
+      "group": "Datas",
+      "syntax": "Intl.DateTimeFormat(\"pt-BR\")",
+      "description": "Formata datas no padrão brasileiro dd/mm/aaaa."
+    }
+  ],
+  "playground": {
+    "html": "<p style=\"font-family:system-ui;padding:16px;color:#334155\">Confira as saídas formatadas no <strong>Console</strong> abaixo.</p>",
+    "css": "",
+    "js": "const bruto = '   dev central   ';\nconst limpo = bruto.trim().replaceAll(' ', '-').toLowerCase();\n\nconst brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });\nconst dataPt = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' });\n\nconst pedidoNum = String(42).padStart(5, '0');\n\nconsole.log('Slug gerado:', limpo);\nconsole.log('Pedido nº:', pedidoNum);\nconsole.log('Preço formatado:', brl.format(1499.9));\nconsole.log('Data hoje:', dataPt.format(new Date()));"
+  },
+  "experiments": [
+    "Troque currency: \"BRL\" por \"USD\" e \"pt-BR\" por \"en-US\" para ver o formato em Dólar.",
+    "Altere padStart(5, \"0\") para padStart(8, \"0\")."
+  ]
+}

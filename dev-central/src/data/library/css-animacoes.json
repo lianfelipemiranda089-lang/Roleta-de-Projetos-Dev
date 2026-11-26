@@ -1,0 +1,100 @@
+{
+  "slug": "css-animacoes",
+  "title": "Animações CSS: Transition, Transform e @keyframes",
+  "category": "Animações",
+  "language": "HTML / CSS / JS",
+  "runnable": true,
+  "summary": "Referência completa de todas as propriedades de animação no CSS com laboratório interativo para testar curvas, tempos e transformações.",
+  "explanation": "No CSS existem dois motores principais de animação: transition (para ir de um estado A a um estado B, como hover/focus) e @keyframes + animation (para movimentos contínuos ou com múltiplas etapas). Para manter 60 FPS sem travar celulares, anime sempre transform e opacity.",
+  "tags": [
+    "animacoes",
+    "css",
+    "keyframes",
+    "transition",
+    "transform",
+    "cubic-bezier",
+    "60fps"
+  ],
+  "references": [
+    {
+      "group": "Transition",
+      "syntax": "transition: transform 220ms cubic-bezier(0.22,1,0.36,1)",
+      "description": "Define propriedade, duração e curva de aceleração entre dois estados."
+    },
+    {
+      "group": "Transform",
+      "syntax": "transform: translate(X, Y)",
+      "description": "Move o elemento no plano sem causar recálculo de layout (reflow)."
+    },
+    {
+      "group": "Transform",
+      "syntax": "transform: scale(1.05)",
+      "description": "Aumenta ou reduz proporcionalmente (1 = normal, 0.96 = clique)."
+    },
+    {
+      "group": "Transform",
+      "syntax": "transform: rotate(15deg)",
+      "description": "Rotaciona o elemento em torno do seu transform-origin."
+    },
+    {
+      "group": "Transform",
+      "syntax": "transform: skewX(-8deg)",
+      "description": "Inclina o elemento horizontal ou verticalmente."
+    },
+    {
+      "group": "Keyframes",
+      "syntax": "@keyframes nome { 0% {} 50% {} 100% {} }",
+      "description": "Define a linha do tempo completa de uma animação multi-etapa."
+    },
+    {
+      "group": "Animation",
+      "syntax": "animation-duration: 1.2s",
+      "description": "Tempo total de um ciclo completo da animação."
+    },
+    {
+      "group": "Animation",
+      "syntax": "animation-timing-function",
+      "description": "Ritmo: linear, ease, ease-in-out, cubic-bezier(...) ou steps(4)."
+    },
+    {
+      "group": "Animation",
+      "syntax": "animation-delay: 150ms",
+      "description": "Tempo de espera antes de iniciar (ótimo para entrada escalonada)."
+    },
+    {
+      "group": "Animation",
+      "syntax": "animation-iteration-count: infinite | 1",
+      "description": "Quantas vezes a animação repete."
+    },
+    {
+      "group": "Animation",
+      "syntax": "animation-direction: alternate",
+      "description": "Faz a animação ir e voltar suavemente (evita pulo brusco)."
+    },
+    {
+      "group": "Animation",
+      "syntax": "animation-fill-mode: forwards | both",
+      "description": "Mantém o estilo final (100%) após a animação terminar."
+    },
+    {
+      "group": "Animation",
+      "syntax": "animation-play-state: paused | running",
+      "description": "Permite pausar uma animação no hover ou via JavaScript."
+    },
+    {
+      "group": "Acessibilidade",
+      "syntax": "@media (prefers-reduced-motion: reduce)",
+      "description": "Reduz ou desliga movimentos para quem prefere interface estática."
+    }
+  ],
+  "playground": {
+    "html": "<div class=\"studio\">\n  <div class=\"controls\">\n    <button id=\"toggle-pause\" type=\"button\">Pausar / Retomar</button>\n    <button id=\"replay\" type=\"button\">Repetir Entrada</button>\n  </div>\n\n  <div class=\"stage\">\n    <div id=\"orb\" class=\"orb\">Flutuando</div>\n    <div id=\"card\" class=\"reveal-card\">\n      <strong>Entrada Suave</strong>\n      <p>Usa opacity + translateY com animation-fill-mode: both.</p>\n    </div>\n  </div>\n</div>",
+    "css": "body { font-family: system-ui, sans-serif; padding: 18px; background: #09090b; color: #fafafa; }\n.studio { display: grid; gap: 16px; }\n.controls { display: flex; gap: 8px; }\nbutton {\n  padding: 7px 12px; border: 1px solid #3f3f46; border-radius: 6px;\n  background: #18181b; color: #fafafa; font-size: 0.82rem; font-weight: 600; cursor: pointer;\n  transition: transform 150ms ease, border-color 150ms ease;\n}\nbutton:hover { border-color: #3b82f6; transform: translateY(-1px); }\nbutton:active { transform: scale(0.96); }\n\n.stage { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; padding: 16px; border: 1px solid #27272a; border-radius: 10px; background: #111114; }\n\n.orb {\n  width: 96px; height: 96px; display: grid; place-items: center;\n  border-radius: 18px; font-size: 0.78rem; font-weight: 700;\n  background: linear-gradient(135deg, #3b82f6, #10b981);\n  animation: floatOrb 2s ease-in-out infinite alternate;\n}\n.orb.paused { animation-play-state: paused; }\n\n.reveal-card {\n  flex: 1; min-width: 200px; padding: 14px; border-radius: 8px;\n  background: #18181b; border: 1px solid #27272a;\n  animation: slideFadeIn 450ms cubic-bezier(0.22, 1, 0.36, 1) both;\n}\n.reveal-card p { margin: 4px 0 0; font-size: 0.82rem; color: #a1a1aa; }\n\n@keyframes floatOrb {\n  from { transform: translateY(0) rotate(0deg); }\n  to { transform: translateY(-12px) rotate(6deg); }\n}\n\n@keyframes slideFadeIn {\n  from { opacity: 0; transform: translateY(14px) scale(0.98); }\n  to { opacity: 1; transform: translateY(0) scale(1); }\n}",
+    "js": "const orb = document.getElementById('orb');\nconst card = document.getElementById('card');\n\ndocument.getElementById('toggle-pause').addEventListener('click', () => {\n  orb.classList.toggle('paused');\n  console.log('Estado da animação:', orb.classList.contains('paused') ? 'pausada' : 'rodando');\n});\n\ndocument.getElementById('replay').addEventListener('click', () => {\n  card.style.animation = 'none';\n  void card.offsetWidth; // força reinício do keyframe\n  card.style.animation = '';\n});"
+  },
+  "experiments": [
+    "Troque alternate por normal em .orb e veja o salto seco no fim do ciclo.",
+    "Mude rotate(6deg) para rotate(180deg) no @keyframes floatOrb.",
+    "Altere 450ms para 150ms no .reveal-card e clique em \"Repetir Entrada\" para sentir a velocidade."
+  ]
+}

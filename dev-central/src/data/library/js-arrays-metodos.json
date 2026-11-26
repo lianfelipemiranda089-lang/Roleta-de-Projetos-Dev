@@ -1,0 +1,26 @@
+{
+  "slug": "js-arrays-metodos",
+  "title": "JavaScript Arrays: map, filter, reduce e find",
+  "category": "JavaScript",
+  "language": "JavaScript",
+  "runnable": true,
+  "summary": "Transforme, filtre e agregue listas de dados de forma declarativa, sem mutar o array original.",
+  "explanation": "No JavaScript moderno, quase todo processamento de listas de APIs ou bancos de dados usa encadeamento de métodos imutáveis. Eles deixam explícita a intenção do código e reduzem bugs causados por alterações inesperadas no array original.",
+  "tags": ["javascript", "arrays", "map", "filter", "reduce", "imutabilidade"],
+  "references": [
+    { "group": "Transformação", "syntax": "arr.map(item => ...)", "description": "Cria um novo array do mesmo tamanho transformando cada elemento." },
+    { "group": "Filtragem", "syntax": "arr.filter(item => condicao)", "description": "Retorna apenas os itens que retornarem true na condição." },
+    { "group": "Busca", "syntax": "arr.find(item => condicao)", "description": "Retorna o primeiro elemento que satisfaz a condição (ou undefined)." },
+    { "group": "Agregação", "syntax": "arr.reduce((acc, item) => ..., inicial)", "description": "Reduz o array a um único valor (soma, objeto agrupado, etc.)." },
+    { "group": "Verificação", "syntax": "arr.some(fn) / arr.every(fn)", "description": "Verifica se pelo menos um (some) ou todos (every) passam no teste." }
+  ],
+  "playground": {
+    "html": "<p style=\"font-family:system-ui;padding:16px;color:#334155\">Abra o painel <strong>Console</strong> abaixo para ver o resultado das operações e edite os valores na aba JS.</p>",
+    "css": "",
+    "js": "const pedidos = [\n  { id: 1, cliente: 'Ana', total: 120, pago: true },\n  { id: 2, cliente: 'Bruno', total: 80, pago: false },\n  { id: 3, cliente: 'Carla', total: 250, pago: true }\n];\n\n// 1. Filtra apenas pedidos pagos\nconst pagos = pedidos.filter((p) => p.pago);\n\n// 2. Extrai somente os nomes\nconst nomesPagantes = pagos.map((p) => p.cliente);\n\n// 3. Soma o faturamento confirmado\nconst faturamento = pagos.reduce((soma, p) => soma + p.total, 0);\n\nconsole.log('Pagantes:', nomesPagantes);\nconsole.log('Faturamento total: R$', faturamento);"
+  },
+  "experiments": [
+    "Mude pago: false para pago: true no pedido do Bruno e observe o faturamento recalcular no Console.",
+    "Adicione um filtro extra como p.total > 150 dentro do .filter()."
+  ]
+}
